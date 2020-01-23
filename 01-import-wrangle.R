@@ -20,3 +20,16 @@ fangraphs_clean <- fangraphs_raw %>%
    `SF%` = as.numeric(str_remove(`SF%`, " %")),
    `KN%` = as.numeric(str_remove(`KN%`, " %"))
   )
+
+fangraphs_stdz <- fangraphs_clean %>%
+  mutate_at(vars(Age:`KN%`), scale)
+
+colnames(fangraphs_stdz)[4:24] <- sapply(
+  colnames(fangraphs_stdz %>% select(Age:`KN%`)),
+  str_c,
+  "_stdz"
+  )
+
+fangraphs_data <- fangraphs_clean %>%
+  left_join(fangraphs_stdz)
+
