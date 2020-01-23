@@ -1,4 +1,4 @@
-pitchers <- read.csv("fangraphs.csv")
+ pitchers <- read.csv("fangraphs.csv")
 install.packages("tidyverse")
 library(tidyverse)
 library(ggplot2)
