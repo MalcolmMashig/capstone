@@ -1,4 +1,5 @@
- pitchers <- read.csv("fangraphs.csv")
+setwd("/Users/christianrogers/Desktop/capstone/data")
+pitchers <- read.csv("fangraphs.csv")
 install.packages("tidyverse")
 library(tidyverse)
 library(ggplot2)
