@@ -35,4 +35,6 @@ medvel
 df3 <- data.frame("AGE" = ages, "Median_Velocity" = vel)
 ggplot(df3, aes(x = AGE, y=Median_Velocity)) + geom_point() + geom_line()
 
-# Look at pitchers with great fastballs - is the dropoff steeper for them?
+tw1819 <- pitchers %>% 
+  filter(Season == 2019 | Season == 2018)
+ids <- tw1819$playerid
