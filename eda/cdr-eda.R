@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 setwd("/Users/christianrogers/Desktop/capstone/data")
 pitchers <- read.csv("fangraphs.csv")
+=======
+ pitchers <- read.csv("fangraphs.csv")
+>>>>>>> 355fca792b22278ffd75e2444248be3147b9c34c
 install.packages("tidyverse")
 library(tidyverse)
 library(ggplot2)
@@ -35,6 +39,10 @@ medvel
 df3 <- data.frame("AGE" = ages, "Median_Velocity" = vel)
 ggplot(df3, aes(x = AGE, y=Median_Velocity)) + geom_point() + geom_line()
 
+<<<<<<< HEAD
 tw1819 <- pitchers %>% 
   filter(Season == 2019 | Season == 2018)
 ids <- tw1819$playerid
+=======
+# Look at pitchers with great fastballs - is the dropoff steeper for them?
+>>>>>>> 355fca792b22278ffd75e2444248be3147b9c34c
