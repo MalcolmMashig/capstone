@@ -1,0 +1,33 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1579816232899.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "A9ECAB74",
+    "lastKnownWriteTime" : 1579797077,
+    "last_content_update" : 1579816232899,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "DEB75820",
+        "caption" : "pitchers",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=pitchers&cache_key=DEB75820",
+        "displayedObservations" : 2356,
+        "environment" : "",
+        "expression" : "pitchers",
+        "object" : "pitchers",
+        "preview" : 0,
+        "totalObservations" : 2356,
+        "variables" : 25
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

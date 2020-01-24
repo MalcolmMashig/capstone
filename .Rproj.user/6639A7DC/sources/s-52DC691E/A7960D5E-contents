@@ -1,0 +1,129 @@
+library('ggpmisc')
+library("ggplot2")
+library("readxl")
+library('ggpubr')
+library("ggrepel")
+library('directlabels')
+getwd()
+wp <- read_excel("KP Win Prob.xls")
+wp
+wp$Team <- factor(wp$Team, levels = c("Duke 2010", "Uconn 2011", "Kentucky 2012", 
+                                      "Louisville 2013", "Uconn 2014", "Duke 2015", 
+                                      "Villanova 2016", "North Carolina 2017", 
+                                      "Villanova 2018", "Virginia 2019"))
+
+plot1 <- ggplot(wp, aes(x=Round, y=WP, color=Team, size=Team), group = Team) + 
+  geom_line() + geom_point()
+plot1_fin <- plot1 + labs(title = "Minimum Win Probability in Final 3 Games", 
+             y="Minimum Win Probability (%)") +  
+  scale_x_continuous(breaks=c(1, 2, 3), labels = c("Elite 8", "Final 4", "Championship")) + 
+  scale_y_continuous(breaks = seq(10,80,10)) +
+  scale_size_manual(values=c(0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 2)) 
+plot1_fin
+tony <- read_excel("Tony Bennett Resume.xlsx") 
+tony
+tony$Component <- factor(tony$Component, levels = c("Offense", "Defense"))
+plot2 <- ggplot(tony, aes(x=Season, y=Rank, color=Component), group = Component) +
+  geom_line() + geom_point()
+plot2 + labs(title = "UVA Team Kenpom Ranks in Tony Bennett Era") + 
+  scale_x_continuous(breaks = seq(2010, 2019, 1)) + 
+  scale_y_continuous(breaks = c(1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160))
+champs <- read_excel("champions.xlsx")
+champs
+plot3 <- ggplot(champs, aes(x=Ret_Min, y=EM_chg, label=Team)) + geom_point(color = 'blue')
+plot3
+plot3 <- plot3 + labs(title = "Efficiency Margin Change for Champions", x="Returning Minutes %", 
+             y="Efficiency Margin Change")  +  
+  geom_text_repel(data=subset(champs, EM_chg > 0 | EM_chg < -19))
+plot3
+plot4 <- ggplot(champs, aes(x=Ret_Points, y=EM_chg, label=Team)) + geom_point(color = 'red')
+plot4
+plot4 <- plot4 + labs(title = "Efficiency Margin Change for Champions", x="Returning Points %", 
+             y="Efficiency Margin Change")  +  
+  geom_text_repel(data=subset(champs, EM_chg > 0 | EM_chg < -19))
+plot4
+plot45 <- ggplot(champs, aes(x=Recruiting_Rank, y=EM_chg, label=Team)) + geom_point(color = 'blue')
+plot45
+plot45 <- plot45 + labs(title = "Efficiency Margin Change for Champions", x="Recruiting Rank", 
+             y="Efficiency Margin Change") + 
+  geom_text_repel(data=subset(champs, Recruiting_Rank > 40 | Recruiting_Rank < 2))
+plot45
+c <- cor(champs$EM_chg, champs$Ret_Min)
+c2 <- cor(champs$EM_chg, champs$Ret_Points)
+round(c, 2)
+round(c2, 2)
+top_teams <- read_excel("30+.xlsx")
+top_teams
+c3 <- cor(top_teams$EM_chg, top_teams$Ret_Min)
+round(c3, 2)
+c4 <- cor(top_teams$EM_chg, top_teams$Ret_Points)
+round(c4, 2)
+c5 <- cor(champs$EM_chg, champs$Recruiting_Rank)
+round(c5, 2)
+plot5 <- ggplot(top_teams, aes(x=Ret_Points, y=EM_chg)) + geom_point()
+plot5 + labs(title = "Efficiency Margin Change for Top Teams", x="Returning Points %", 
+             y="Efficiency Margin Change")
+
+plot6 <- ggplot(top_teams, aes(x=Ret_Min, y=EM_chg)) + geom_point()
+plot6 + labs(title = "Efficiency Margin Change for Top Teams", x="Returning Minutes %", 
+             y="Efficiency Margin Change") 
+
+## UVA returning minutes = 40.1, points = 32.4
+uva_min <- data.frame(Min = c(40.1))
+uva_pt <- data.frame(Pt = c(32.4))
+
+champs_reg = data.frame(EM = champs$EM_chg, Min = champs$Ret_Min)
+champ_min <- lm(EM ~ Min, data=champs_reg)
+summary(champ_min)
+predict(champ_min, uva_min,  interval = 'confidence')
+
+champs_reg2 = data.frame(EM = champs$EM_chg, Pt = champs$Ret_Points)
+champ_pt <- lm(EM ~ Pt, data=champs_reg2)
+summary(champ_pt)
+predict(champ_pt, uva_pt,  interval = 'confidence')
+
+top_reg = data.frame(EM = top_teams$EM_chg, Min = top_teams$Ret_Min)
+top_min <- lm(EM ~ Min, data=top_reg)
+summary(top_min)
+predict(top_min, uva_min,  interval = 'confidence')
+
+top_reg2 = data.frame(EM = top_teams$EM_chg, Pt = top_teams$Ret_Points)
+top_pt <- lm(EM ~ Pt, data=top_reg2)
+summary(top_pt)
+predict(top_pt, uva_pt,  interval = 'confidence')
+
+#Multiple regression w/ Recruiting - UVA rank = 23
+uva_mult = data.frame(Pt = c(32.4), rec = c(23))
+champs_mult <- data.frame(EM = champs$EM_chg, Pt = champs$Ret_Points, rec = champs$Recruiting_Rank)
+champs_reg3 <- lm(EM ~ Pt  + rec, data=champs_mult)
+summary(champs_reg3)
+predict(champs_reg3, uva_mult, interval='confidence')
+
+all <- read_excel("all.xlsx")
+all_reg = data.frame(EM = all$EM_chg, Min = all$Ret_Min, Chmp = all$Champion)
+all_model <- lm(EM ~ Min + Chmp, data=all_reg)
+summary(all_model)
+predict(all_model, uva_min,  interval = 'confidence')
+
+croots <- read_excel("Croots.xlsx")
+ploteh <- ggplot(croots, aes(x=Year, y=Num, color=Top), group = Top) +
+  geom_line() + geom_point() + scale_y_continuous(breaks=seq(1,13,1)) +
+  scale_x_continuous(breaks=seq(2010,2018,1)) + labs(title='Number of Freshmen in Top 100 BPM', y="Number", color='Recruit Rank ')
+ploteh + theme(axis.text.x = element_text(angle = 90))
+
+ret <- read_excel("ret.xlsx")
+
+ploteh2 <- ggplot(ret, aes(x=Ret_Min, y=Ret_Points, color=Team, label=Team)) + geom_point(aes(color=Team))
+ploteh2 + labs(title="Returning Points and Minutes for Champions", x="Returning Minutes %",
+               y="Returning Points %") + scale_color_manual(values=c('black', 'red')) +
+  theme(legend.position="None") + geom_label_repel(data=subset(ret, Ret_Min == 40.1), direction = "x", force=60)
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
