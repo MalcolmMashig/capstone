@@ -5,15 +5,15 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "0",
+    "hash" : "1504634546",
     "id" : "B5305A4A",
-    "lastKnownWriteTime" : 1579895993,
-    "last_content_update" : 1579895993,
+    "lastKnownWriteTime" : 1579896923,
+    "last_content_update" : 1579896923736,
     "path" : "~/Desktop/capstone/eda/cdr-eda.R",
     "project_path" : "eda/cdr-eda.R",
     "properties" : {
-        "cursorPosition" : "40,0",
-        "scrollLine" : "20"
+        "cursorPosition" : "47,0",
+        "scrollLine" : "28"
     },
     "read_only" : false,
     "read_only_alternatives" : [

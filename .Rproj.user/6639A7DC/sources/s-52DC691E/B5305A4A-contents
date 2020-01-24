@@ -45,4 +45,4 @@ tw1819 <- pitchers %>%
 ids <- tw1819$playerid
 =======
 # Look at pitchers with great fastballs - is the dropoff steeper for them?
->>>>>>> 355fca792b22278ffd75e2444248be3147b9c34c
+
