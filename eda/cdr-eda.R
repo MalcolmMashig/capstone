@@ -144,7 +144,7 @@ cor(combined_corr_2$`corr2017_2$xFIP`, combined_corr_2$xFIP)
 
 ## Didn't seem to help much...
 
-## NEXT STEPS: Try to test correlation for all 1/2/3/4/5 year splits between players (increase sample size)
+## NEXT STEPS: Try to test correlation for all 1/2/3/4/5 year splits between players (increase sample size tremendously)
 
 
 
