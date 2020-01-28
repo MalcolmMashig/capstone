@@ -1,24 +1,24 @@
 {
     "collab_server" : "",
     "contents" : "",
-    "created" : 1579797068152.000,
+    "created" : 1580225973009.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "1504634546",
-    "id" : "B5305A4A",
-    "lastKnownWriteTime" : 1579896923,
-    "last_content_update" : 1579896923736,
+    "hash" : "0",
+    "id" : "63AB4AC7",
+    "lastKnownWriteTime" : 1580229464,
+    "last_content_update" : 1580229464258,
     "path" : "~/Desktop/capstone/eda/cdr-eda.R",
     "project_path" : "eda/cdr-eda.R",
     "properties" : {
-        "cursorPosition" : "47,0",
-        "scrollLine" : "28"
+        "cursorPosition" : "134,0",
+        "scrollLine" : "130"
     },
     "read_only" : false,
     "read_only_alternatives" : [
     ],
-    "relative_order" : 1,
+    "relative_order" : 2,
     "source_on_save" : false,
     "source_window" : "",
     "type" : "r_source"
