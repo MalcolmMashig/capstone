@@ -15,3 +15,7 @@ common2019
 
 combined20182019 <- cbind(common2018, common2019$WAR, common2019$xFIP)
 combined20182019
+colnames(combined20182019)
+?lm
+basic_model <- lm(common2019$xFIP~Age + xFIP + FBv, data=combined20182019)
+summary(basic_model)
