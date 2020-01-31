@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1580489762203.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3718264934",
+    "id" : "50625AEE",
+    "lastKnownWriteTime" : 1580490722,
+    "last_content_update" : 1580490722282,
+    "path" : "~/Google Drive/2nd Year/STAT 4996/Github Folder/data/New data wrangle.R",
+    "project_path" : "data/New data wrangle.R",
+    "properties" : {
+        "cursorPosition" : "31,0",
+        "scrollLine" : "11",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
