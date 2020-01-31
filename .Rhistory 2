@@ -1,0 +1,328 @@
+jawn <- read.csv("fangraphs.csv")
+jawn <- read.csv("fangraphs.csv")
+View(jawn)
+View(jawn)
+jawn <- read.csv("fangraphs.csv")
+getwd()
+jawn <- read.csv("fangraphs.csv")
+View(jawn)
+jawn <- read.csv("fangraphs.csv")
+View(jawn)
+View(jawn)
+View(jawn)
+pitchers <- read.csv("fangraphs.csv")
+View(pitchers)
+library(ggplot2)
+age_hist <- ggplot(pitchers, aes(age)) + geom_histogram()
+age_hist
+age_hist <- ggplot(pitchers, aes(Age)) + geom_histogram()
+age_hist
+age_hist <- ggplot(pitchers, aes(Age)) + geom_histogram(bins=100)
+age_hist
+age_hist <- ggplot(pitchers, aes(Age)) + geom_histogram(bins=50)
+age_hist
+age_hist <- ggplot(pitchers, aes(Age)) + geom_histogram(bins=20)
+age_hist
+age_hist <- ggplot(pitchers, aes(Age)) + geom_histogram(bins=10)
+age_hist
+age_hist <- ggplot(pitchers, aes(Age)) + geom_histogram(bins=15)
+age_hist
+age_hist <- ggplot(pitchers, aes(Age)) + geom_histogram(bins=20)
+age_hist
+avg_fbv <- ggplot(pitchers, aes(x=Age, y=FBv)) + geom_bar(stat='mean')
+avg_fbv <- ggplot(pitchers, aes(x=Age, y=FBv)) + geom_bar(stat="mean")
+avg_fbv <- ggplot(pitchers, aes(x=Age, y=FBv)) + geom_bar(stat="summary", fun.y = "mean")
+avg_fbv
+avg_fbv <- ggplot(pitchers, aes(x=Age, y=FBv)) + geom_bar(stat="summary", fun.y = "mean") + ylim(85,100)
+avg_fbv
+avg_fbv <- ggplot(pitchers, aes(x=Age, y=FBv)) + geom_bar(stat="summary", fun.y = "mean") + scale_y_continuous(
+breaks = seq(85,100,1))
+avg_fbv
+avg_fbv <- ggplot(pitchers, aes(x=Age, y=FBv)) + geom_bar(stat="summary", fun.y = "mean") + scale_y_continuous(limits = seq(85,100,1))
+avg_fbv
+avg_fbv <- ggplot(pitchers, aes(x=Age, y=FBv)) + geom_bar(stat="summary", fun.y = "mean") + scale_y_continuous(limits = seq(85,100,1))
+avg_fbv
+ggplot(pitchers, aes(x=Age, y=FBv)) + geom_bar(stat="summary", fun.y = "mean") + scale_y_continuous(limits = seq(85,100,1))
+ggplot(pitchers, aes(x=Age, y=FBv)) + geom_bar(stat="summary", fun.y = "mean") + scale_y_continuous(limits = c(80,100))
+ggplot(pitchers, aes(x=Age, y=FBv)) + geom_bar(stat="summary", fun.y = "mean")
+pitchers[age=20]
+pitchers[age=20,]
+pitchers[age==20,]
+pitchers[pitchers$age==20,]
+twenty <- pitchers[pitchers$age==20,]
+twenty <- pitchers[pitchers$age==21,]
+library(tidyverse)
+install.packages("tidyverse")
+library(ggplot2)
+twenty <- pitchers %>%
+filter(age == 21)
+library(tidyverse)
+twenty <- pitchers %>%
+filter(age == 21)
+twenty <- pitchers %>%
+filter(Age == 21)
+View(twenty)
+twenty.length
+twenty.numRows
+nrow(twenty)
+fb <- twenty$FBv
+average(fb)
+mean(fb)
+avg_fbv(20)
+avg_fbv <- function(age){
+df <- pitchers %>%
+filter(Age == age)
+fb <- df$FBv
+mean(fb)
+}
+avg_fbv(20)
+avg_fbv(21)
+ages <- seq(20,47,1)
+ages
+vel <- sapply(ages, avg_fbv)
+vel
+df2 <- data.frame("AGE" = ages, "Velocity" = vel)
+df2
+ggplot(df2, aes(x = AGE, y=Velocity)) + geom_point() + geom_line()
+#Median fastball velocity by age
+med_fbv <- function(age){
+df <- pitchers %>%
+filter(Age == age)
+fb <- df$FBv
+median(fb)
+}
+medvel <- sapply(ages, med_fbv)
+medvel
+df3 <- data.frame("AGE" = ages, "Median Velocity" = vel)
+df3 <- data.frame("AGE" = ages, "Median_Velocity" = vel)
+ggplot(df3, aes(x = AGE, y=Median_Velocity)) + geom_point() + geom_line
+ggplot(df3, aes(x = AGE, y=Median_Velocity)) + geom_point() + geom_line()
+medvel
+vel
+# Look at pitchers with great fastballs - is the dropoff steeper?
+test <- pitchers %>%
+filter(Season == 2002)
+test$FBv
+quantile(test$FBv, 0.9)
+quantile(test$FBv, 0.95)
+# Look at pitchers with great fastballs - is the dropoff steeper?
+test <- pitchers %>%
+filter(Season == 2019)
+quantile(test$FBv, 0.95)
+# Look at pitchers with great fastballs - is the dropoff steeper?
+test <- pitchers %>%
+filter(Season == 2002)
+quantile(test$FBv, 0.95)
+pitchers2 <- pitchers %>%
+filter(FBv >= 92.82)
+pitchers2 <- test %>%
+filter(FBv >= 92.82)
+View(pitchers2)
+View(test)
+git pull
+pitchers <- read.csv("fangraphs.csv")
+getwd()
+setwd("/Users/christianrogers/Desktop/capstone/data")
+pitchers <- read.csv("fangraphs.csv")
+View(pitchers)
+library(tidyverse)
+library(ggplot2)
+pitchers <- read.csv("fangraphs.csv")
+setwd("/Users/christianrogers/Desktop/capstone/data")
+pitchers <- read.csv("fangraphs.csv")
+tw1819 <- pitchers %>%
+filter(Season == 2019 | Season == 2018)
+View(tw1819)
+View(tw1819)
+tw1819$playerid
+ids <- tw1819$playerid
+table(ids)
+as.data.frame(table(ids))
+id_df <- as.data.frame(table(ids))
+print(id)
+print(id)
+pitchers <- read.csv("fangraphs.csv")
+setwd("/Users/christianrogers/Desktop/capstone/data")
+pitchers <- read.csv("fangraphs.csv")
+library(tidyverse)
+library(ggplot2)
+# Playing around with linear models
+p2018 <- filter(pitchers, season==2018)
+# Playing around with linear models
+p2018 <- filter(pitchers, Season==2018)
+p2017 <- filter(pitchers, Season==2017)
+p2019 <- filter(pitchers, Season==2019)
+common <- intersect(p2018$playerid, p2019$playerid)
+common18 <- filter(p2018, playerid %in% common)
+common19 <- filter(p2019, playerid %in% common)
+combined1819 <- cbind(common18, common19$WAR, common19$xFIP)
+View(combined1819)
+View(common19)
+#How does WAR correlate over larger samples
+p2017 <- filter(pitchers, Season==2017)
+p2016 <- filter(pitchers, Season==2016)
+p2015 <- filter(pitchers, Season==2015)
+common2 <- intersect(p2018$playerid, p2019$playerid, p2017$playerid)
+common2 <- intersect(common, p2017$playerid)
+common3 <- intersect(common2, p2016$playerid)
+common4 <- intersect(common3, p2015$playerid)
+View(common19)
+#33 pitchers have 5 consecutive season's worth of data
+# Create WAR/100 IP metric to standardize
+#2019
+war19 <- p2019$WAR
+ip19 <- p2019$IP
+war19/ip19
+(war19/ip19) * 100
+war_per100 <- (war19/ip19) * 100
+p2019 <- cbind(p2019, war_per100)
+View(p2019)
+p2019 <- filter(pitchers, Season==2019)
+war19 <- p2019$WAR
+ip19 <- p2019$IP
+war_per100_19 <- (war19/ip19) * 100
+p2019 <- cbind(p2019, war_per100)
+View(p2019)
+p2019 <- filter(pitchers, Season==2019)
+war19 <- p2019$WAR
+ip19 <- p2019$IP
+war_per19 <- (war19/ip19) * 100
+p2019 <- cbind(p2019, war_per100)
+p2019 <- filter(pitchers, Season==2019)
+war19 <- p2019$WAR
+ip19 <- p2019$IP
+war_per19 <- (war19/ip19) * 100
+p2019 <- cbind(p2019, war_per19)
+View(p2019)
+war18 <- p2018$WAR
+ip18 <- p2018$IP
+war_per18 <- (war18/ip18) * 100
+p2018 <- cbind(p2018, war_per18)
+war17 <- p2017$WAR
+ip17 <- p2017$IP
+war_per17 <- (war17/ip17) * 100
+p2017 <- cbind(p2017, war_per17)
+war16 <- p2016$WAR
+ip16 <- p2016$IP
+war_per16 <- (war16/ip16) * 100
+p2016 <- cbind(p2016, war_per16)
+war15 <- p2015$WAR
+ip15 <- p2015$IP
+war_per15 <- (war15/ip15) * 100
+p2015 <- cbind(p2015, war_per15)
+# combine it all into one table
+corr2019 <- filter(p2019, playerid %in% common4)
+corr2018 <- filter(p2018, playerid %in% common4)
+corr2017 <- filter(p2017, playerid %in% common4)
+corr2016 <- filter(p2016, playerid %in% common4)
+corr2015 <- filter(p2015, playerid %in% common4)
+View(corr2015)
+combined_corr <- cbind(corr2019, corr2018$war_per18, corr2018$xFIP, corr2017$war_per17, corr2017$xFIP,
+corr2016$war_per16, corr2016$xFIP, corr2015$war_per15, corr2015$xFIP)
+View(combined_corr)
+#How do WAR and xFip correlate over the years?
+corr(combined_corr$`corr2018$war_per18`, combined_corr$war_per19)
+#How do WAR and xFip correlate over the years?
+cor(combined_corr$`corr2018$war_per18`, combined_corr$war_per19)
+cor(war_per18, war_per19)
+#How do WAR and xFip correlate over the years?
+cor(combined_corr$`corr2018$war_per18`, combined_corr$war_per19)
+#2018-2019 xFip =
+cor(combined_corr$`corr2018$xFIP`, combined_corr$xFIP)
+#2017-2019 WAR = 0.65
+cor(combined_corr$`corr2017$war_per17`, combined_corr$war_per19)
+#2018-2019 xFip = 0.81
+cor(combined_corr$`corr2017$xFIP`, combined_corr$xFIP)
+#2016-2019 WAR = 0.65
+cor(combined_corr$`corr2016$war_per16`, combined_corr$war_per19)
+#2016-2019 xFip = 0.81
+cor(combined_corr$`corr2016$xFIP`, combined_corr$xFIP)
+#2015-2019 WAR = 0.65
+cor(combined_corr$`corr2015$war_per15`, combined_corr$war_per19)
+#2015-2019 xFip = 0.81
+cor(combined_corr$`corr2015$xFIP`, combined_corr$xFIP)
+corr2019_2 <- filter(p2019, playerid %in% common2)
+corr2018_2 <- filter(p2018, playerid %in% common2)
+corr2017_2 <- filter(p2017, playerid %in% common2)
+combined_corr_2 <- cbind(corr2019_2, corr2018_2$war_per18, corr2018_2$xFIP, corr2017_2$war_per17, corr2017_2$xFIP)
+#2018-2019 WAR pt2 = 0.65
+cor(combined_corr_2$`corr2018_2$war_per18`, combined_corr_2$war_per19)
+#2018-2019 xFip pt2 = 0.81
+cor(combined_corr_2$`corr2018$xFIP`, combined_corr_2$xFIP)
+#2018-2019 xFip pt2 = 0.81
+cor(combined_corr_2$`corr2018_2$xFIP`, combined_corr_2$xFIP)
+#2018-2019 WAR pt2 = 0.53
+cor(combined_corr_2$`corr2018_2$war_per18`, combined_corr_2$war_per19)
+#2018-2019 WAR pt2 = 0.53
+cor(combined_corr_2$`corr2017_2$war_per18`, combined_corr_2$war_per19)
+#2018-2019 WAR pt2 = 0.53
+cor(combined_corr_2$`corr2017_2$war_per17`, combined_corr_2$war_per19)
+#2018-2019 xFip pt2 = 0.76
+cor(combined_corr_2$`corr2017_2$xFIP`, combined_corr_2$xFIP)
+install.packages("here")
+# install.packages('tidyverse')
+library(tidyverse)
+# install.packages('lubridate')
+library(lubridate)
+# install.packages('here')
+library(here)
+fangraphs_raw <- here::here('data', 'fangraphs.csv') %>%
+read_csv()
+fangraphs_clean <- fangraphs_raw %>%
+mutate(
+`FB%` = as.numeric(str_remove(`FB%`, " %")),
+`SL%` = as.numeric(str_remove(`SL%`, " %")),
+`CT%` = as.numeric(str_remove(`CT%`, " %")),
+`CB%` = as.numeric(str_remove(`CB%`, " %")),
+`CH%` = as.numeric(str_remove(`CH%`, " %")),
+`SF%` = as.numeric(str_remove(`SF%`, " %")),
+`KN%` = as.numeric(str_remove(`KN%`, " %"))
+) %>%
+arrange(Name, Season) %>%
+group_by(Name) %>%
+mutate(experience = row_number()) %>%
+ungroup() %>%
+select(1:4, 26, 5:25)
+# 1 row/player ----------------------------
+# xFIP
+season_xfip <- fangraphs_clean %>%
+pivot_wider(id_cols = Name,
+names_from = Season,
+values_from = xFIP,
+names_prefix = "xFIP_")
+experience_xfip <- fangraphs_clean %>%
+pivot_wider(id_cols = Name,
+names_from = experience,
+values_from = xFIP,
+names_prefix = "xFIP_")
+# FBv
+season_fbv <- fangraphs_clean %>%
+pivot_wider(id_cols = Name,
+names_from = Season,
+values_from = FBv,
+names_prefix = "FBv_")
+experience_fbv <- fangraphs_clean %>%
+pivot_wider(id_cols = Name,
+names_from = experience,
+values_from = FBv,
+names_prefix = "FBv_")
+# FB%
+season_fbpct <- fangraphs_clean %>%
+pivot_wider(id_cols = Name,
+names_from = Season,
+values_from = `FB%`,
+names_prefix = "FB%_")
+experience_fbpct <- fangraphs_clean %>%
+pivot_wider(id_cols = Name,
+names_from = experience,
+values_from = `FB%`,
+names_prefix = "FB%_")
+# Player Data
+fangraphs_player <- bind_cols(season_xfip, season_fbv, season_fbpct,
+experience_xfip, experience_fbv, experience_fbpct)
+# Remove intermediate data
+remove(season_xfip, season_fbv, season_fbpct,
+experience_xfip, experience_fbv, experience_fbpct)
+View(fangraphs_player)
+View(fangraphs_raw)
+View(fangraphs_clean)
