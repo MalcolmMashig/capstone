@@ -1,0 +1,33 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1580416254619.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "4AE2B616",
+    "lastKnownWriteTime" : 7307199665335071333,
+    "last_content_update" : 1580416254619,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "B6780B9C",
+        "caption" : "fangraphs_player",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=fangraphs_player&cache_key=B6780B9C",
+        "displayedObservations" : "619",
+        "environment" : "",
+        "expression" : "fangraphs_player",
+        "object" : "fangraphs_player",
+        "preview" : "0",
+        "totalObservations" : "619",
+        "variables" : "111"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

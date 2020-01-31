@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1580421908267.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3665847048",
+    "id" : "18B77444",
+    "lastKnownWriteTime" : 1580249431,
+    "last_content_update" : 1580249431,
+    "path" : "~/Google Drive/2nd Year/STAT 4996/Github Folder/SimpleLinearRegression2018-19.R",
+    "project_path" : "SimpleLinearRegression2018-19.R",
+    "properties" : {
+        "cursorPosition" : "0,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
