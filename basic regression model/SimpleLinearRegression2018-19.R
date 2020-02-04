@@ -68,3 +68,10 @@ summary(model10)
 
 model11 <- lm(xFIP_2019 ~ xFIP_2018 + FBv_2018 + `HR/9_2019`, data=data_2018_2019)
 summary(model11)  # all variables very significant
+
+
+# find RMSE for models
+# try for experience in years
+# try a span of more than 2 years
+
+
