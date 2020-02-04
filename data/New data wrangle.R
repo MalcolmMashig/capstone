@@ -1,11 +1,9 @@
 library(tidyverse)
 library(lubridate)
-library(here)
 
 # importing raw data
 
-data_raw <- here::here('data', 'NEW Fangraphs.csv') %>% 
-  read_csv()
+data_raw <- read_csv('NEW Fangraphs.csv')
 
 # cleaning percentage format
 
@@ -554,3 +552,4 @@ remove(experience_Team, experience_GS, experience_IP, experience_StartIP, experi
        experience_Groundball, experience_Flyball, experience_K, experience_BB, experience_FB, 
        experience_FBv, experience_wFB, experience_SL, experience_CT, experience_CB, experience_CH, 
        experience_SF, experience_KN, experience_Dollars)
+
