@@ -36,6 +36,24 @@ names(data_clean)[36] <- "Experience"
 data_season <- select(data_clean, 1:4,36,6:7,13,5,11,14,12,15,27,34,8:10,25:26,28:29,31:32,16:24,30,35)
 names(data_season)
 
+# Age
+
+season_Age <- data_season %>% 
+  pivot_wider(id_cols = Name, 
+              names_from = Season, 
+              values_from = Age, 
+              names_prefix = "Age_")
+
+season_Age <- select(season_Age, 1:2, 17, 3:15, 18:19, 16)
+
+experience_Age <- data_season %>% 
+  pivot_wider(id_cols = Name, 
+              names_from = Experience, 
+              values_from = Age, 
+              names_prefix = "Age_")
+
+
+
 # Team
 
 season_Team <- data_season %>% 
@@ -518,7 +536,7 @@ experience_Dollars <- data_season %>%
 
 # Player Data by Year
 
-data_player_year <- bind_cols(season_Team, season_GS, season_IP, season_StartIP, season_ERA, 
+data_player_year <- bind_cols(season_Age, season_Team, season_GS, season_IP, season_StartIP, season_ERA, 
                               season_WHIP, season_WAR, season_FIP, season_xFIP, season_BABIP, 
                               season_FRM, season_K9, season_BB9, season_KBB, season_H9, season_HR9, 
                               season_Groundball, season_Flyball, season_K, season_BB, season_FB, 
@@ -527,7 +545,7 @@ data_player_year <- bind_cols(season_Team, season_GS, season_IP, season_StartIP,
 
 # Remove intermediate data
 
-remove(season_Team, season_GS, season_IP, season_StartIP, season_ERA, season_WHIP, season_WAR, 
+remove(season_Age, season_Team, season_GS, season_IP, season_StartIP, season_ERA, season_WHIP, season_WAR, 
        season_FIP, season_xFIP, season_BABIP, season_FRM, season_K9, season_BB9, season_KBB, 
        season_H9, season_HR9, season_Groundball, season_Flyball, season_K, season_BB, season_FB, 
        season_FBv, season_wFB, season_SL, season_CT, season_CB, season_CH, season_SF, season_KN, 
@@ -535,21 +553,22 @@ remove(season_Team, season_GS, season_IP, season_StartIP, season_ERA, season_WHI
 
 # Player Data by Experience
 
-data_player_experience <- bind_cols(experience_Team, experience_GS, experience_IP, experience_StartIP, 
-                                    experience_ERA, experience_WHIP, experience_WAR, experience_FIP, 
-                                    experience_xFIP, experience_BABIP, experience_FRM, experience_K9, 
-                                    experience_BB9, experience_KBB, experience_H9, experience_HR9, 
-                                    experience_Groundball, experience_Flyball, experience_K, 
+data_player_experience <- bind_cols(experience_Age, experience_Team, experience_GS, experience_IP, 
+                                    experience_StartIP, experience_ERA, experience_WHIP, experience_WAR, 
+                                    experience_FIP, experience_xFIP, experience_BABIP, experience_FRM, 
+                                    experience_K9,  experience_BB9, experience_KBB, experience_H9, 
+                                    experience_HR9, experience_Groundball, experience_Flyball, experience_K, 
                                     experience_BB, experience_FB, experience_FBv, experience_wFB, 
                                     experience_SL, experience_CT, experience_CB, experience_CH, 
                                     experience_SF, experience_KN, experience_Dollars)
 
 # Remove intermediate data
 
-remove(experience_Team, experience_GS, experience_IP, experience_StartIP, experience_ERA, 
+remove(experience_Age, experience_Team, experience_GS, experience_IP, experience_StartIP, experience_ERA, 
        experience_WHIP, experience_WAR, experience_FIP, experience_xFIP, experience_BABIP, 
        experience_FRM, experience_K9, experience_BB9, experience_KBB, experience_H9, experience_HR9, 
        experience_Groundball, experience_Flyball, experience_K, experience_BB, experience_FB, 
        experience_FBv, experience_wFB, experience_SL, experience_CT, experience_CB, experience_CH, 
        experience_SF, experience_KN, experience_Dollars)
+
 
