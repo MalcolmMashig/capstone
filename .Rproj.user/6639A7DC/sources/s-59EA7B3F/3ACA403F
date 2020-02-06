@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1581011975155.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "3ACA403F",
+    "lastKnownWriteTime" : 1581018134,
+    "last_content_update" : 1581018134,
+    "path" : "~/Desktop/capstone/basic regression model/SimpleLinearRegression2018-19.R",
+    "project_path" : "basic regression model/SimpleLinearRegression2018-19.R",
+    "properties" : {
+        "cursorPosition" : "12,0",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

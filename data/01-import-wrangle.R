@@ -22,9 +22,12 @@ fangraphs_clean <- fangraphs_raw %>%
   ) %>% 
   arrange(Name, Season) %>% 
   group_by(Name) %>% 
-  mutate(experience = row_number()) %>% 
+  # Add variables for experience (numbers of years meeting minimum use) and
+  # seasons (number of years in league)
+  mutate(experience = row_number(),
+         seasons = Season - min(Season) + 1) %>% 
   ungroup() %>% 
-  select(1:4, 26, 5:25)
+  select(1:4, 26:27, 5:25)
 
 # 1 row/player ----------------------------
 
