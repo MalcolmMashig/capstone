@@ -135,31 +135,49 @@ Years2model6 <- lm(xFIP_2019 ~ WHIP_2018 + xFIP_2018 + FBv_2018 + `K/9_2018` + `
                `HR/9_2017` + `xFIP_2017` + `BABIP_2017`, data=data_2017_2018_2019)
 summary(Years2model6)
 
-# remove K/9
+# Flyball%_2018, WAR_2018
 
-Years2model7 <- lm(xFIP_2019 ~ WHIP_2018 + xFIP_2018 + FBv_2018 + `HR/9_2018`+ `K%_2018` 
-             + WAR_2018 + `Flyball%_2018` + BABIP_2018 + `FB%_2018`, data=data_data_2017_2018_2019)
+Years2model7 <- lm(xFIP_2019 ~ WHIP_2018 + xFIP_2018 + FBv_2018 + `K/9_2018` + `HR/9_2018`+ `K%_2018` 
+                   + BABIP_2018 + `FB%_2018` + `BB/9_2017` + `K/BB_2017` + `H/9_2017` +
+                     `HR/9_2017` + `xFIP_2017` + `BABIP_2017`, data=data_2017_2018_2019)
 summary(Years2model7)
 
-# remove K%
+# remove WHIP_2018, FB%_2018
 
-Years2model8 <- lm(xFIP_2019 ~ WHIP_2018 + xFIP_2018 + FBv_2018 + `HR/9_2018`+ WAR_2018 
-             + `Flyball%_2018` + BABIP_2018 + `FB%_2018`, data=data_2017_2018_2019)
+Years2model8 <- lm(xFIP_2019 ~ xFIP_2018 + FBv_2018 + `K/9_2018` + `HR/9_2018`+ `K%_2018` 
+                   + BABIP_2018 + `BB/9_2017` + `K/BB_2017` + `H/9_2017` +
+                     `HR/9_2017` + `xFIP_2017` + `BABIP_2017`, data=data_2017_2018_2019)
 summary(Years2model8)
 
-# remove WAR and FB%
+# remove HR/9_2017 HR/9_2018)
 
-Years2model9 <- lm(xFIP_2019 ~ WHIP_2018 + xFIP_2018 + FBv_2018 + `HR/9_2018` + `Flyball%_2018` 
-             + BABIP_2018, data=data_2017_2018_2019)
+Years2model9 <- lm(xFIP_2019 ~ xFIP_2018 + FBv_2018 + `K/9_2018` + `K%_2018` 
+                   + BABIP_2018 + `BB/9_2017` + `K/BB_2017` + `H/9_2017` +
+                     `xFIP_2017` + `BABIP_2017`, data=data_2017_2018_2019)
 summary(Years2model9)
 
-# remove WHIP and BABIP
+# remove H_9_2017 K/WW_2017
 
-Years2model10 <- lm(xFIP_2019 ~ xFIP_2018 + FBv_2018 + `HR/9_2018` + `Flyball%_2018`, 
-              data=data_data_2017_2018_2019)
+Years2model10 <- lm(xFIP_2019 ~ xFIP_2018 + FBv_2018 + `K/9_2018` + `K%_2018` 
+                    + BABIP_2018 + `BB/9_2017` +
+                      `xFIP_2017` + `BABIP_2017`, data=data_2017_2018_2019)
 summary(Years2model10)
 
-# remove Flyball% 
+# remove K/9_2018 K%_2018
 
-model11 <- lm(xFIP_2019 ~ xFIP_2018 + FBv_2018, data=data_2017_2018_2019)
-summary(Years2model11)  # all variables very significant
+
+Years2model11 <- lm(xFIP_2019 ~ xFIP_2018 + FBv_2018 
+                    + BABIP_2018 + `BB/9_2017` +
+                      `xFIP_2017` + `BABIP_2017`, data=data_2017_2018_2019)
+summary(Years2model11)
+
+
+# remove xFIP_2017 BABIP_2018
+
+
+Years2model12 <- lm(xFIP_2019 ~ xFIP_2018 + FBv_2018 
+                     + `BB/9_2017`
+                       + `BABIP_2017`, data=data_2017_2018_2019)
+summary(Years2model12)
+
+summary(Years2model12)  # all variables very significant
