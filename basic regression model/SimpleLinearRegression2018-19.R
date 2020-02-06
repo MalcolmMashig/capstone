@@ -36,37 +36,37 @@ summary(model5)
 
 # most significant varibles from all prior models
 
-model6 <- lm(xFIP_2019 ~ WHIP_2018 + xFIP_2018 + FBv_2018 + `K/9_2018` + `HR/9_2019`+ `K%_2018` 
+model6 <- lm(xFIP_2019 ~ WHIP_2018 + xFIP_2018 + FBv_2018 + `K/9_2018` + `HR/9_2018`+ `K%_2018` 
              + WAR_2018 + `Flyball%_2018` + BABIP_2018 + `FB%_2018`, data=data_2018_2019)
 summary(model6)
 
 # remove K/9
 
-model7 <- lm(xFIP_2019 ~ WHIP_2018 + xFIP_2018 + FBv_2018 + `HR/9_2019`+ `K%_2018` 
+model7 <- lm(xFIP_2019 ~ WHIP_2018 + xFIP_2018 + FBv_2018 + `HR/9_2018`+ `K%_2018` 
              + WAR_2018 + `Flyball%_2018` + BABIP_2018 + `FB%_2018`, data=data_2018_2019)
 summary(model7)
 
 # remove K%
 
-model8 <- lm(xFIP_2019 ~ WHIP_2018 + xFIP_2018 + FBv_2018 + `HR/9_2019`+ WAR_2018 
+model8 <- lm(xFIP_2019 ~ WHIP_2018 + xFIP_2018 + FBv_2018 + `HR/9_2018`+ WAR_2018 
              + `Flyball%_2018` + BABIP_2018 + `FB%_2018`, data=data_2018_2019)
 summary(model8)
 
 # remove WAR and FB%
 
-model9 <- lm(xFIP_2019 ~ WHIP_2018 + xFIP_2018 + FBv_2018 + `HR/9_2019` + `Flyball%_2018` 
+model9 <- lm(xFIP_2019 ~ WHIP_2018 + xFIP_2018 + FBv_2018 + `HR/9_2018` + `Flyball%_2018` 
              + BABIP_2018, data=data_2018_2019)
 summary(model9)
 
 # remove WHIP and BABIP
 
-model10 <- lm(xFIP_2019 ~ xFIP_2018 + FBv_2018 + `HR/9_2019` + `Flyball%_2018`, 
+model10 <- lm(xFIP_2019 ~ xFIP_2018 + FBv_2018 + `HR/9_2018` + `Flyball%_2018`, 
               data=data_2018_2019)
 summary(model10)
 
-# remove Flyball%
+# remove Flyball% 
 
-model11 <- lm(xFIP_2019 ~ xFIP_2018 + FBv_2018 + `HR/9_2019`, data=data_2018_2019)
+model11 <- lm(xFIP_2019 ~ xFIP_2018 + FBv_2018, data=data_2018_2019)
 summary(model11)  # all variables very significant
 
 
@@ -74,4 +74,8 @@ summary(model11)  # all variables very significant
 # try for experience in years
 # try a span of more than 2 years
 
+
+
+
+## Jordan/MAlcolm will try adding multiple years
 
