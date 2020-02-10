@@ -7,10 +7,16 @@ library(lubridate)
 # install.packages('here')
 library(here)
 
-fangraphs_raw <- here::here('data', 'fangraphs.csv') %>% 
-  read_csv()
+players_raw <- here::here('data', 'NEW Fangraphs.csv') %>% 
+  read_csv() %>% 
+  select(playerid)
+
+fangraphs_raw <- here::here('data', '1984-2019 data.csv') %>% 
+  read_csv() %>% 
+  semi_join(players_raw)
 
 fangraphs_clean <- fangraphs_raw %>% 
+  rename(Flyball_percent = `FB%_1`) %>% 
   mutate(
    `FB%` = as.numeric(str_remove(`FB%`, " %")),
    `SL%` = as.numeric(str_remove(`SL%`, " %")),
@@ -18,7 +24,11 @@ fangraphs_clean <- fangraphs_raw %>%
    `CB%` = as.numeric(str_remove(`CB%`, " %")),
    `CH%` = as.numeric(str_remove(`CH%`, " %")),
    `SF%` = as.numeric(str_remove(`SF%`, " %")),
-   `KN%` = as.numeric(str_remove(`KN%`, " %"))
+   `KN%` = as.numeric(str_remove(`KN%`, " %")),
+   `GB%` = as.numeric(str_remove(`GB%`, " %")),
+   `K%` = as.numeric(str_remove(`K%`, " %")),
+   `BB%` = as.numeric(str_remove(`BB%`, " %")),
+   Flyball_percent = as.double(str_remove(Flyball_percent, " %"))
   ) %>% 
   arrange(Name, Season) %>% 
   group_by(Name) %>% 
@@ -26,8 +36,7 @@ fangraphs_clean <- fangraphs_raw %>%
   # seasons (number of years in league)
   mutate(experience = row_number(),
          seasons = Season - min(Season) + 1) %>% 
-  ungroup() %>% 
-  select(1:4, 26:27, 5:25)
+  ungroup()
 
 # 1 row/player ----------------------------
 
