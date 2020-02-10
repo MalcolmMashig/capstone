@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1581351583331.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3797439913",
+    "id" : "450100D4",
+    "lastKnownWriteTime" : 1581353100,
+    "last_content_update" : 1581353100,
+    "path" : "~/Google Drive/2nd Year/STAT 4996/Github Folder/data/01-import-wrangle.R",
+    "project_path" : "data/01-import-wrangle.R",
+    "properties" : {
+        "cursorPosition" : "90,0",
+        "scrollLine" : "73"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
