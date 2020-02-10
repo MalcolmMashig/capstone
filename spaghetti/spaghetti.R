@@ -18,7 +18,9 @@ fangraphs_clean %>%
          avg_ip = mean(IP, na.rm = TRUE),
          avg_gs = mean(GS, na.rm = TRUE)
          ) %>% 
-  ungroup() %>% 
+  ungroup() -> avgs
+
+avgs %>% 
   filter(experience > 4, Season > 2010) %>% 
   as_tsibble(key = Name, index = experience) %>%
   ggplot() +
@@ -28,5 +30,46 @@ fangraphs_clean %>%
   labs(color = "")
   # facet_wrap(~(avg_fbpctg > 60))
 
+fangraphs_clean %>% 
+  filter(experience > 12) %>% 
+  distinct(Name) -> seasoned_vets
 
-  
+fangraphs_clean %>% 
+  filter(Name == sample(seasoned_vets$Name, 1)) %>% 
+  ggplot() +
+  geom_line(aes(experience, WAR))
+
+lm(
+  data = avgs,
+  xFIP ~ lag(FBv) +
+    lag(xFIP) +
+    lag(`FB%`) +
+    lag(IP) + 
+    lag(GS)
+    ) %>% 
+  summary()
+# Higher FB%, lower WAR
+# Higher FBV, higher WAR -- large significant effect
+# More Experience, lower WAR
+# Higher IP, Higher WAR
+# Higher GS, Lower WAR -- large significant effect
+
+stdz <- fangraphs_clean %>% 
+  group_by(Season, age) %>% 
+  mutate_at(.vars = c(4, 7:26),
+            .funs = scale) %>% 
+  ungroup()
+
+stdz %>% 
+  filter(experience > 7) %>% 
+  distinct(Name) -> seasoned_vets
+
+stdz %>% 
+  filter(Name == sample(seasoned_vets$Name, 1)) %>% 
+  ggplot() +
+  geom_line(aes(experience, WAR)) +
+  geom_bar(aes(experience, FBv), stat = "identity", 
+           fill = "transparent", color = "red")
+
+
+
