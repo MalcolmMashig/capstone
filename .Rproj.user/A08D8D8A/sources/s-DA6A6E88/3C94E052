@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1581456978204.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1993550816",
+    "id" : "3C94E052",
+    "lastKnownWriteTime" : 1581353637,
+    "last_content_update" : 1581353637,
+    "path" : "~/Google Drive/2nd Year/STAT 4996/Github Folder/data/Complete Data Wrangle.R",
+    "project_path" : "data/Complete Data Wrangle.R",
+    "properties" : {
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
