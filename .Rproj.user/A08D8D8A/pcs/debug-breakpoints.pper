@@ -1,0 +1,21 @@
+{
+    "debugBreakpointsState" : {
+        "breakpoints" : [
+            {
+                "editor_line_number" : 183,
+                "editor_state" : 1,
+                "function_name" : "toplevel",
+                "function_steps" : "",
+                "id" : 0,
+                "is_package_breakpoint" : false,
+                "is_pending_debug_completion" : false,
+                "line_number" : 183,
+                "needs_updated_steps" : false,
+                "package_name" : "",
+                "path" : "~/Google Drive/2nd Year/STAT 4996/Github Folder/data/New data wrangle.R",
+                "state" : 1,
+                "type" : 1
+            }
+        ]
+    }
+}
