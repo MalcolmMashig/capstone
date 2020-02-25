@@ -1,25 +1,9 @@
-source('01-import-wrangle.R')
+library(tidyverse)
 
-fangraphs_data %>%
-  distinct(Name) %>%
-  nrow()
-fangraphs_data %>%
-  group_by(Name) %>%
-  summarise(count = n()) %>% arrange(desc(count)) %>% view()
+here::here('data', '01-import-wrangle.R') %>% 
+  source()
 
-fangraphs_data %>%
-  group_by(Name) %>%
-  summarise(count = n()) %>% arrange(desc(count)) %>%
-  group_by(count) %>%
-  summarise(n())
-
-fangraphs_data %>%
-  distinct(Season) %>%
-  nrow()
-
-fangraphs_data %>%
-  group_by(Name) %>%
-  summarise(count = n()) %>%
-  ggplot() +
-  geom_histogram(aes(count), bins = 18)
-
+fangraphs_clean %>% 
+  group_by(playerid) %>% 
+  mutate(d = cumsum(seasons - experience)) %>% 
+  ungroup() %>% view()
