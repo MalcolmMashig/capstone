@@ -13,6 +13,8 @@ fangraphs_raw <- here::here('data', 'Full Careers.csv') %>%
   read_csv() %>% 
   semi_join(players_raw)
 
+ip_min <- 80
+
 fangraphs_clean <- fangraphs_raw %>% 
   rename(Flyball_percent = `FB%_1`) %>% 
   mutate(
@@ -33,8 +35,12 @@ fangraphs_clean <- fangraphs_raw %>%
   group_by(Name) %>% 
   # Add variables for experience (numbers of years meeting minimum use) and
   # seasons (number of years in league)
-  mutate(experience = row_number(),
+  mutate(data_years = row_number(),
          seasons = Season - min(Season) + 1) %>% 
+  ungroup() %>% 
+  filter(IP >= ip_min) %>% 
+  group_by(Name) %>% 
+  mutate(experience = row_number()) %>% 
   ungroup()
 
 fangraphs_stdz <- fangraphs_clean %>% 
