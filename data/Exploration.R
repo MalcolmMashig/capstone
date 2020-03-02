@@ -232,3 +232,34 @@ df25$change <- change
 hist <- ggplot(df25, aes(x=change)) + geom_histogram(bins = 15, fill='white', color='black') +
   labs(title="Change in Standardized xFIP from age 25 to 26") + theme(plot.title = element_text(hjust = 0.5))
 hist
+
+
+# age 29 to 30
+df29 <- filter(fangraphs_stdz, Age == 29)
+df30 <- filter(fangraphs_stdz, Age == 30)
+common2 <- intersect(df29$Name, df30$Name)
+df29 <- filter(df29, Name %in% common2)
+df30 <- filter(df30, Name %in% common2)
+df29$xFIP2 <- df30$xFIP
+df29 <- select(df29, c('Name', 'xFIP', 'xFIP2'))
+change <- df29$xFIP2 - df29$xFIP
+df29$change <- change
+hist2 <- ggplot(df29, aes(x=change)) + geom_histogram(bins = 15, fill='white', color='black') +
+  labs(title="Change in Standardized xFIP from age 29 to 30") + theme(plot.title = element_text(hjust = 0.5))
+hist2
+
+# age 33 to 34
+df33 <- filter(fangraphs_stdz, Age == 33)
+df34 <- filter(fangraphs_stdz, Age == 34)
+common3 <- intersect(df25$Name, df26$Name)
+df33 <- filter(df33, Name %in% common3)
+df34 <- filter(df34, Name %in% common3)
+df33$xFIP2 <- df34$xFIP
+df33 <- select(df33, c('Name', 'xFIP', 'xFIP2'))
+change <- df33$xFIP2 - df33$xFIP
+df33$change <- change
+hist3 <- ggplot(df33, aes(x=change)) + geom_histogram(bins = 15, fill='white', color='black') +
+  labs(title="Change in Standardized xFIP from age 33 to 34") + theme(plot.title = element_text(hjust = 0.5))
+hist3
+
+
