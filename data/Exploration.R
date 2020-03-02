@@ -217,4 +217,18 @@ cor(xfip1$xFIP_2018, xfip2$xFIP_2019)
 ## only 0.39!!
 
 
-# 5. Which variables correlate best with xFip in the future?
+# Looking at the distribution in change in xFip by age
+# start with age 25 to 26
+
+df25 <- filter(fangraphs_stdz, Age == 25)
+df26 <- filter(fangraphs_stdz, Age == 26)
+common <- intersect(df25$Name, df26$Name)
+df25 <- filter(df25, Name %in% common)
+df26 <- filter(df26, Name %in% common)
+df25$xFIP2 <- df26$xFIP
+df25 <- select(df25, c('Name', 'xFIP', 'xFIP2'))
+change <- df25$xFIP2 - df25$xFIP
+df25$change <- change
+hist <- ggplot(df25, aes(x=change)) + geom_histogram(bins = 15, fill='white', color='black') +
+  labs(title="Change in Standardized xFIP from age 25 to 26") + theme(plot.title = element_text(hjust = 0.5))
+hist
