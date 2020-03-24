@@ -4,6 +4,12 @@ library(tidyverse)
 
 fangraphs_clean
 
+
+##### USE LAG FUNCTION FOR YEAR BEFORE
+### group by players
+### mutate a new column
+
+
 ## Overall model
 fangraphs_clean <- fangraphs_clean %>% rename(FBP = "FB%")
 
