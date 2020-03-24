@@ -34,3 +34,6 @@ summary(basic_modelstdz)
 
 ## Try making models for each age
 
+
+
+
