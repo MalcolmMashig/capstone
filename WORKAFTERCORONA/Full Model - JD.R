@@ -1,0 +1,36 @@
+install.packages("dplyr")
+library(dplyr)
+library(tidyverse)
+
+fangraphs_clean
+
+## Overall model
+fangraphs_clean <- fangraphs_clean %>% rename(FBP = "FB%")
+
+basic_model <- lm(xFIP~Age + FBv + FBP, data=fangraphs_clean)
+
+summary(basic_model)
+
+## Overall model standardized
+
+fangraphs_stdz<- fangraphs_stdz %>% rename(FBP = "FB%")
+
+basic_modelstdz <- lm(xFIP~Age + FBv + FBP, data=fangraphs_stdz)
+
+summary(basic_modelstdz)
+
+
+## NEXT STEP
+
+## Create function that adds a new column of the 
+##previous year's xFIP for every player in the data set
+
+
+### Linear relationship for age seems inaccurate
+
+
+
+### Try making new model for every age
+
+## Try making models for each age
+
