@@ -26,6 +26,22 @@ basic_modelstdz <- lm(xFIP~Age + FBv + FBP, data=fangraphs_stdz)
 summary(basic_modelstdz)
 
 
+help(lag)
+lag(xFIP)
+
+
+### Add lag without fixing it yet for when it gets the wrong player
+
+basic_modeLag <- lm(xFIP~Age + FBv + FBP + lag(xFIP), data=fangraphs_clean)
+
+summary(basic_modeLag)
+
+basic_modelstdzLag <- lm(xFIP~Age + FBv + FBP + lag(xFIP), data=fangraphs_stdz)
+
+summary(basic_modelstdzLag)
+
+
+
 ## NEXT STEP
 
 ## Create function that adds a new column of the 
