@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
     "path" : "~/Google Drive/2nd Year/STAT 4996/Github Folder/WORKAFTERCORONA",
+=======
+    "path" : "~/Google Drive/2nd Year/STAT 4996/Github Folder/data",
+>>>>>>> 2bb29b9f9c0f04008ea3e9c579e0fdce2f1f9749
     "sortOrder" : [
         {
             "ascending" : true,
