@@ -1,7 +1,9 @@
-<<<<<<< HEAD
 /Users/devanbose/Google Drive/2nd Year/STAT 3080/Class Notes/Unit1Script.R="B4DA7FCB"
 /Users/devanbose/Google Drive/2nd Year/STAT 4996/Github Folder/WORKAFTERCORONA/Full Model - JD.R="79C6FC26"
 /Users/devanbose/Google Drive/2nd Year/STAT 4996/Github Folder/WORKAFTERCORONA/Submodels.R="B08A3677"
+/Users/devanbose/Google Drive/2nd Year/STAT 4996/Github Folder/WORKAFTERCORONA/lagged_comparison.R="1410A0BC"
+/Users/devanbose/Google Drive/2nd Year/STAT 4996/Github Folder/WORKAFTERCORONA/multiple_years_back.R="C4621B6B"
+/Users/devanbose/Google Drive/2nd Year/STAT 4996/Github Folder/WORKAFTERCORONA/sim.R="209D0D1E"
 /Users/devanbose/Google Drive/2nd Year/STAT 4996/Github Folder/basic regression model/LR_0203.R="E891E2E3"
 /Users/devanbose/Google Drive/2nd Year/STAT 4996/Github Folder/basic regression model/SimpleLinearRegression2018-19.R="77442727"
 /Users/devanbose/Google Drive/2nd Year/STAT 4996/Github Folder/data/Complete Data Wrangle.R="BC29CA62"
@@ -12,11 +14,3 @@
 /Users/devanbose/Google Drive/2nd Year/STAT 4996/Github Folder/data/Initial Data Wrangle.R="44777356"
 /Users/devanbose/Google Drive/2nd Year/STAT 4996/Github Folder/data/import-wrangle.R="F6137279"
 /Users/devanbose/Google Drive/2nd Year/STAT 4996/Github Folder/spaghetti/spaghetti.R="7AE3AECA"
-=======
-/Users/christianrogers/Desktop/capstone/WORKAFTERCORONA/Full Model - JD.R="64FA9E76"
-/Users/christianrogers/Desktop/capstone/basic regression model/SimpleLinearRegression2018-19.R="11B8FD63"
-/Users/christianrogers/Desktop/capstone/data/Complete Data Wrangle.R="92160B3D"
-/Users/christianrogers/Desktop/capstone/data/Exploration.R="FC9A1609"
-/Users/christianrogers/Desktop/capstone/data/import-wrangle.R="23DF64D5"
-/Users/christianrogers/Desktop/capstone/eda/cdr-eda.R="976B4310"
->>>>>>> 2bb29b9f9c0f04008ea3e9c579e0fdce2f1f9749
