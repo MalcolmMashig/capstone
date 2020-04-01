@@ -58,3 +58,10 @@ fangraphs_stdz <- fangraphs_stdz %>%
   group_by(Name) %>% 
   mutate(lag_xfip = lag(xFIP)) %>% 
   ungroup()
+
+
+# Add lag(xfip) ft2
+fangraphs_stdz <- fangraphs_stdz %>% 
+  group_by(Name) %>% 
+  mutate(lag_xfip2 = lag(xFIP, n = 2)) %>% 
+  ungroup()
