@@ -19,8 +19,6 @@ summary(basic_model)
 
 ## Overall model standardized
 
-fangraphs_stdz<- fangraphs_stdz %>% rename(FBP = "FB%")
-
 basic_modelstdz <- lm(xFIP~Age + FBv + FBP, data=fangraphs_stdz)
 
 summary(basic_modelstdz)
@@ -70,4 +68,6 @@ summary(basic_modelstdz)
 basic_modelstdzLag <- lm(xFIP~Age + FBv + FBP + lag_xfip, data=fangraphs_stdz)
 
 summary(basic_modelstdzLag)
+
+
 
