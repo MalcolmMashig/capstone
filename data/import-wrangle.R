@@ -61,7 +61,9 @@ fangraphs_stdz <- fangraphs_stdz %>%
          lag_xfip2 = lag(xFIP, n = 2),
          lag_xfip3 = lag(xFIP, n = 3),
          lag_fbv = lag(FBv),
-         lag_fbp = lag(FBP)) %>% 
+         lag_fbp = lag(FBP),
+         lag_fbv2 = lag(FBv, n = 2),
+         lag_fbp2 = lag (FBP, n = 2))%>% 
   ungroup()
 
 
