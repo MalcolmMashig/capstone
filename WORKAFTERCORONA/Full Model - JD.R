@@ -111,3 +111,53 @@ summary(basic_modelstdzLag12)
 
 
 
+
+### Make training and test data
+sample.names = unique(fangraphs_stdz$Name)
+trainNames = sample(sample.names, size = length(sample.names) / 1.25)
+trainNames = as.list(trainNames)
+train<- filter(fangraphs_stdz, Name%in%trainNames)  ## 80%
+test<- filter(fangraphs_stdz, !Name%in%trainNames) ## 20%
+
+
+## Perform model
+## 1 year and 2 years back
+trainLag12 <- lm(xFIP~Age + FBv + FBP + lag_xfip + lag_xfip2, data=train)
+
+summary(trainLag12)
+
+
+
+## Look at predictions
+predictions <- predict(trainLag12, newdata = test, interval = "confidence")
+predictions <- as.tibble(predictions)
+
+dfTest <- as.data.frame(test)
+prediColumns <- select(test, c(Name, Season, xFIP) )
+
+RESULTS <- cbind(prediColumns, predictions)
+RESULTS <- drop_na(RESULTS)
+
+
+
+
+#############
+
+
+lda.test <- predict(trainLag12, newdata = test)
+table(test$chd69,lda.test$class)
+mean(test$chd69 == lda.test$class)
+
+lda.test$class
+
+table(test$chd69, lda.test$posterior[,2]>0.1)
+
+
+preds<-lda.test$posterior[,2]
+rates<-prediction(preds, test$chd69)
+roc_result<-performance(rates,measure="tpr", x.measure="fpr")
+plot(roc_result, main="ROC Curve for Cardio Death")
+lines(x = c(0,1), y = c(0,1), col="red")
+auc<-performance(rates, measure = "auc")
+auc
+
