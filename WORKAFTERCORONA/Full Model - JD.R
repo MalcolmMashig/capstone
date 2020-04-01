@@ -61,16 +61,53 @@ summary(basic_modelstdzLag)
 
 fangraphs_clean <- fangraphs_clean %>% rename(FBP = "FB%")
 
+fangraphs_stdz <- fangraphs_stdz %>% rename(FBP = "FB%")
+
 basic_modelstdz <- lm(xFIP~Age + FBv + FBP, data=fangraphs_stdz)
 
 summary(basic_modelstdz)
 
-basic_modelstdzLag <- lm(xFIP~Age + FBv + FBP + lag_xfip, data=fangraphs_stdz)
-
-summary(basic_modelstdzLag)
 
 
 
 
-#### Try for each age range - age is insignificant 
+
+
+
+## HERe is real work starts
+
+fangraphs_stdz <- fangraphs_stdz %>% rename(FBP = "FB%")
+
+## Just 1 year back lag
+basic_modelstdzLag1 <- lm(xFIP~Age + FBv + FBP + lag_xfip, data=fangraphs_stdz)
+
+summary(basic_modelstdzLag1)
+
+
+## 1 year and 2 years back
+basic_modelstdzLag12 <- lm(xFIP~Age + FBv + FBP + lag_xfip + lag_xfip2, data=fangraphs_stdz)
+
+summary(basic_modelstdzLag12)
+
+
+## Just 2 year back
+basic_modelstdzLag2 <- lm(xFIP~Age + FBv + FBP + lag_xfip2, data=fangraphs_stdz)
+
+summary(basic_modelstdzLag2)
+
+
+## 1 and 2 and 3 years
+basic_modelstdzLag123 <- lm(xFIP~Age + FBv + FBP + lag_xfip + lag_xfip2 + lag_xfip3, data=fangraphs_stdz)
+
+summary(basic_modelstdzLag123)
+
+### Sample size gets smaller but we can see lagxfip 3 years back is NOT significant
+
+
+
+
+
+
+#### Try for each age range - age is insignificant because only looking at one year at time
+#### 
 

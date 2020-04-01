@@ -53,15 +53,13 @@ fangraphs_stdz <- fangraphs_clean %>%
     ) %>% 
   ungroup()
 
-# Add lag(xfip)
+# Add lag(xfip) -1,2,3
 fangraphs_stdz <- fangraphs_stdz %>% 
   group_by(Name) %>% 
   mutate(lag_xfip = lag(xFIP)) %>% 
-  ungroup()
-
-
-# Add lag(xfip) ft2
-fangraphs_stdz <- fangraphs_stdz %>% 
-  group_by(Name) %>% 
   mutate(lag_xfip2 = lag(xFIP, n = 2)) %>% 
+  mutate(lag_xfip3 = lag(xFIP, n = 3)) %>% 
   ungroup()
+
+
+
