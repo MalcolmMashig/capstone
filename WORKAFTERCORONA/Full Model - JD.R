@@ -60,6 +60,13 @@ summary(basic_modelstdzLag123)
 
 
 
+## 3 years
+basic_modelstdzLag3 <- lm(xFIP~Age + FBv + FBP + lag_xfip3, data=fangraphs_stdz)
+
+summary(basic_modelstdzLag3)
+
+#### Just 3 years
+
 ## Add lags for fbv and fbp
 
 basic_modelstdzLag111 <- lm(xFIP~Age + lag_fbv + lag_fbp + lag_xfip, data=fangraphs_stdz)
