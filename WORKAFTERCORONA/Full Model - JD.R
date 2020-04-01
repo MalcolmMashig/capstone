@@ -59,7 +59,7 @@ summary(basic_modelstdzLag)
 
 ### NEW WORK AFTER 3/30
 
-
+fangraphs_clean <- fangraphs_clean %>% rename(FBP = "FB%")
 
 basic_modelstdz <- lm(xFIP~Age + FBv + FBP, data=fangraphs_stdz)
 
@@ -70,4 +70,7 @@ basic_modelstdzLag <- lm(xFIP~Age + FBv + FBP + lag_xfip, data=fangraphs_stdz)
 summary(basic_modelstdzLag)
 
 
+
+
+#### Try for each age range - age is insignificant 
 
