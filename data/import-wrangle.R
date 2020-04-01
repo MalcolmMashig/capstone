@@ -48,7 +48,7 @@ fangraphs_stdz <- fangraphs_clean %>%
   group_by(Season) %>% 
   mutate_at(
     .vars = vars(ERA, `K/9`:FIP, WAR:xFIP, `H/9`:`HR/9`, 
-                 Flyball_percent, `K%`:`BB%`),
+                 Flyball_percent, `K%`:`BB%`, `FB%`, `FBv`),
             .funs = scale
     ) %>% 
   ungroup()
