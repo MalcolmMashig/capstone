@@ -52,4 +52,9 @@ fangraphs_stdz <- fangraphs_clean %>%
             .funs = scale
     ) %>% 
   ungroup()
-  
+
+# Add lag(xfip)
+fangraphs_stdz <- fangraphs_stdz %>% 
+  group_by(Name) %>% 
+  mutate(lag_xfip = lag(xFIP)) %>% 
+  ungroup()
