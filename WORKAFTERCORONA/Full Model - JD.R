@@ -6,7 +6,7 @@ fangraphs_clean
 
 
 ##### USE LAG FUNCTION FOR YEAR BEFORE
-### group by players
+### groupby players
 ### mutate a new column
 
 
@@ -143,21 +143,21 @@ RESULTS <- drop_na(RESULTS)
 
 #############
 
-
-lda.test <- predict(trainLag12, newdata = test)
-table(test$chd69,lda.test$class)
-mean(test$chd69 == lda.test$class)
-
-lda.test$class
-
-table(test$chd69, lda.test$posterior[,2]>0.1)
-
-
-preds<-lda.test$posterior[,2]
-rates<-prediction(preds, test$chd69)
-roc_result<-performance(rates,measure="tpr", x.measure="fpr")
-plot(roc_result, main="ROC Curve for Cardio Death")
-lines(x = c(0,1), y = c(0,1), col="red")
-auc<-performance(rates, measure = "auc")
-auc
+# 
+# lda.test <- predict(trainLag12, newdata = test)
+# table(test$chd69,lda.test$class)
+# mean(test$chd69 == lda.test$class)
+# 
+# lda.test$class
+# 
+# table(test$chd69, lda.test$posterior[,2]>0.1)
+# 
+# 
+# preds<-lda.test$posterior[,2]
+# rates<-prediction(preds, test$chd69)
+# roc_result<-performance(rates,measure="tpr", x.measure="fpr")
+# plot(roc_result, main="ROC Curve for Cardio Death")
+# lines(x = c(0,1), y = c(0,1), col="red")
+# auc<-performance(rates, measure = "auc")
+# auc
 
