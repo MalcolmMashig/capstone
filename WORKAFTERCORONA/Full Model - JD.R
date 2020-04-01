@@ -59,3 +59,15 @@ summary(basic_modelstdzLag)
 
 
 
+### NEW WORK AFTER 3/30
+
+
+
+basic_modelstdz <- lm(xFIP~Age + FBv + FBP, data=fangraphs_stdz)
+
+summary(basic_modelstdz)
+
+basic_modelstdzLag <- lm(xFIP~Age + FBv + FBP + lag_xfip, data=fangraphs_stdz)
+
+summary(basic_modelstdzLag)
+
