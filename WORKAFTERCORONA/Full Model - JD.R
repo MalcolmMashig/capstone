@@ -60,8 +60,9 @@ summary(basic_modelstdzLag123)
 
 
 
+basic_modelstdzLag111 <- lm(xFIP~Age + lag_fbv + lag_fbp + lag_xfip, data=fangraphs_stdz)
 
-
+summary(basic_modelstdzLag111)
 
 #### Try for each age range - age is insignificant because only looking at one year at time
 #### 
