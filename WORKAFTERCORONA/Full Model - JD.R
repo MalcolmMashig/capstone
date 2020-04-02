@@ -122,7 +122,7 @@ test<- filter(fangraphs_stdz, !Name%in%trainNames) ## 20%
 
 ## Perform model
 ## 1 year and 2 years back
-trainLag12 <- lm(xFIP~Age + FBv + FBP + lag_xfip + lag_xfip2, data=train)
+trainLag12 <- lm(xFIP~Age + lag_fbv + lag_fbp + lag_xfip + lag_xfip2, data=train)
 
 summary(trainLag12)
 
