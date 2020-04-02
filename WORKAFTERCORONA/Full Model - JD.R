@@ -156,7 +156,8 @@ getMSE <- function(){
   sumMSE = 0
   sumProp = 0
   ### Make training and test data
-  for (i in 1:10000){
+  n = 100
+  for (i in 1:n){
     sample.names = unique(fangraphs_stdz$Name)
     trainNames = sample(sample.names, size = length(sample.names) / 1.25)
     trainNames = as.list(trainNames)
@@ -175,16 +176,16 @@ getMSE <- function(){
     RESULTS <- cbind(prediColumns, predictions)
     RESULTS <- drop_na(RESULTS)
   
-    mean = mean( (RESULTS$fit - RESULTS$xFIP)^2 )
-    sumMSE = sumMSE + mean
-    prop = mean(RESULTS$xFIP >= RESULTS$lwr & RESULTS$xFIP <= RESULTS$upr)
-    sumProp = sumProp + prop
+    testMSE = mean( (RESULTS$fit - RESULTS$xFIP)^2 )
+    sumMSE = sumMSE + testMSE
+    testProp = mean(RESULTS$xFIP >= RESULTS$lwr & RESULTS$xFIP <= RESULTS$upr)
+    sumProp = sumProp + testProp
   }
   
   print("MSE")
-  mean(sumMSE)
+  print(sumMSE/n)
   print("Proportion within prediction interval which is very wide")
-  mean(sumProp)
+  print(sumProp/n)
   
 }
 
