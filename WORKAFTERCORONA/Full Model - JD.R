@@ -1,6 +1,10 @@
 ##install.packages("dplyr")
 library(dplyr)
 library(tidyverse)
+library(here)
+
+here::here('data', 'import-wrangle.R') %>% 
+  source()
 
 fangraphs_clean
 
