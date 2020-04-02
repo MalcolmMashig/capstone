@@ -81,13 +81,16 @@ summary(basic_modelstdzLag111)
 
 
 
+
+
+
+
+
+
 ## Just 2 year back for everything
 basic_modelstdzLag2 <- lm(xFIP~Age + lag_fbv + lag_fbp2 + lag_fbv2 + lag_fbp+ lag_xfip2, data=fangraphs_stdz)
 
 summary(basic_modelstdzLag2)
-
-
-
 
 
 ### Try ages
@@ -126,18 +129,112 @@ test<- filter(fangraphs_stdz, !Name%in%trainNames) ## 20%
 
 ## Perform model
 ## 1 year and 2 years back
-trainLag12 <- lm(xFIP~Age + lag_fbv + lag_fbp + lag_xfip + lag_xfip2, data=train)
+trainLag12 <- lm(xFIP~Age + lag_fbv + FBv + FBP + lag_xfip2, data=train)
 
 summary(trainLag12)
 
-
-
 ## Look at predictions
-predictions <- predict(trainLag12, newdata = test, interval = "confidence")
-predictions <- as.tibble(predictions)
+predict <- predict(trainLag12, newdata = test, interval = "prediction")
+predictions <- as.tibble(predict)
 
 dfTest <- as.data.frame(test)
 prediColumns <- select(test, c(Name, Season, xFIP) )
 
 RESULTS <- cbind(prediColumns, predictions)
 RESULTS <- drop_na(RESULTS)
+
+mean( (RESULTS$fit - RESULTS$xFIP)^2 )
+
+mean( ( abs(RESULTS$fit - RESULTS$xFIP)) )
+
+mean(RESULTS$xFIP >= RESULTS$lwr & RESULTS$xFIP <= RESULTS$upr)
+
+
+
+## Put into function
+getMSE <- function(){
+  sumMSE = 0
+  sumProp = 0
+  ### Make training and test data
+  for (i in 1:10000){
+    sample.names = unique(fangraphs_stdz$Name)
+    trainNames = sample(sample.names, size = length(sample.names) / 1.25)
+    trainNames = as.list(trainNames)
+    train<- filter(fangraphs_stdz, Name%in%trainNames)  ## 80%
+    test<- filter(fangraphs_stdz, !Name%in%trainNames) ## 20%
+    
+    #### JUST NEED TO CHANGE THE MODEL RIGHT HERE
+    model <- lm(xFIP~Age + lag_fbv + FBv + FBP + lag_xfip2, data=train)
+    
+    predict <- predict(model, newdata = test, interval = "prediction")
+    predictions <- as.tibble(predict)
+    
+    dfTest <- as.data.frame(test)
+    prediColumns <- select(test, c(Name, Season, xFIP) )
+    
+    RESULTS <- cbind(prediColumns, predictions)
+    RESULTS <- drop_na(RESULTS)
+  
+    mean = mean( (RESULTS$fit - RESULTS$xFIP)^2 )
+    sumMSE = sumMSE + mean
+    prop = mean(RESULTS$xFIP >= RESULTS$lwr & RESULTS$xFIP <= RESULTS$upr)
+    sumProp = sumProp + prop
+  }
+  
+  print("MSE")
+  mean(sumMSE)
+  print("Proportion within prediction interval which is very wide")
+  mean(sumProp)
+  
+}
+
+
+getMSE()
+
+
+
+
+
+
+#### Try Cross Validation
+
+
+##install.packages("boot")
+
+library(boot) ##needed for cv.glm() function 
+
+## Try 2
+
+glm.fit = glm(xFIP~Age + lag_fbv + FBv + FBP + lag_xfip2, data=fangraphs_stdz)
+getGoodRows <- predict(glm.fit, newdata = fangraphs_stdz, interval = "prediction")
+getGoodRows <- as.data.frame(getGoodRows)
+getGoodRows <- drop_na(getGoodRows)
+goodROWS <- rownames(getGoodRows)
+allData <- filter(fangraphs_stdz, row_number()%in%goodROWS)
+## LOOCV
+cv.glm(allData, glm.fit, K = 1485)$delta[1]   ## This returned value is the LOOCV MSE
+
+### 10-fold
+cv.glm(allData, glm.fit, K = 10)$delta[1]  ## This returned value is the 10-fold CV MSE
+
+
+
+### PUT MODEL HERE
+
+glm.fit = glm(xFIP~Age + lag_fbv + FBv + FBP + lag_xfip2, data=fangraphs_stdz)
+
+useCV <- function(glm.fit){
+  getGoodRows <- predict(glm.fit, newdata = fangraphs_stdz, interval = "prediction")
+  getGoodRows <- as.data.frame(getGoodRows)
+  getGoodRows <- drop_na(getGoodRows)
+  goodROWS <- rownames(getGoodRows)
+  allData <- filter(fangraphs_stdz, row_number()%in%goodROWS)
+  ## LOOCV
+  cv.glm(allData, glm.fit, K = 1485)$delta[1]   ## This returned value is the LOOCV MSE
+  
+  ### 10-fold
+  #cv.glm(allData, glm.fit, K = 10)$delta[1]  ## This returned value is the 10-fold CV MSE
+}
+
+
+useCV(glm.fit)
