@@ -133,25 +133,19 @@ trainLag12 <- lm(xFIP~Age + lag_fbv + FBv + FBP + lag_xfip2, data=train)
 
 summary(trainLag12)
 
+
 ## Look at predictions
 predict <- predict(trainLag12, newdata = test, interval = "prediction")
 predictions <- as.tibble(predict)
-
 dfTest <- as.data.frame(test)
 prediColumns <- select(test, c(Name, Season, xFIP) )
-
 RESULTS <- cbind(prediColumns, predictions)
 RESULTS <- drop_na(RESULTS)
 
-mean( (RESULTS$fit - RESULTS$xFIP)^2 )
-
-mean( ( abs(RESULTS$fit - RESULTS$xFIP)) )
-
-mean(RESULTS$xFIP >= RESULTS$lwr & RESULTS$xFIP <= RESULTS$upr)
 
 
 
-## Put into function
+## Put into function and calculate accuracy
 getMSE <- function(){
   sumMSE = 0
   sumProp = 0
@@ -231,10 +225,12 @@ useCV <- function(glm.fit){
   goodROWS <- rownames(getGoodRows)
   allData <- filter(fangraphs_stdz, row_number()%in%goodROWS)
   ## LOOCV
-  cv.glm(allData, glm.fit, K = 1485)$delta[1]   ## This returned value is the LOOCV MSE
+  print("LOOCV")
+  print(cv.glm(allData, glm.fit, K = 1485)$delta[1])  ## This returned value is the LOOCV MSE
   
   ### 10-fold
-  #cv.glm(allData, glm.fit, K = 10)$delta[1]  ## This returned value is the 10-fold CV MSE
+  print("10-Fold")
+  print(cv.glm(allData, glm.fit, K = 10)$delta[1])  ## This returned value is the 10-fold CV MSE
 }
 
 
