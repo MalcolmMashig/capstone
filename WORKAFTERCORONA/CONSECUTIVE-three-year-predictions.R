@@ -206,3 +206,12 @@ predictions3 <- fangraphs_clean %>%
   )
 
 predictions <- cbind(predictions1, predictions2, predictions3)
+
+RMSE <- function(predicted, actual){
+  sqrt(mean((predicted - actual)^2, na.rm = TRUE))
+}
+
+
+RMSE(predictions$xFIP, predictions$predicted_xfip1)
+RMSE(predictions$xFIP2, predictions$predicted_xfip2)
+RMSE(predictions$xFIP3, predictions$predicted_xfip3)
