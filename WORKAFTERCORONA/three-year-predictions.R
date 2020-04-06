@@ -143,6 +143,7 @@ predictions <- three_year %>%
   ) %>% 
   ungroup() %>% 
   select(
+    Name,
     Season, xFIP, predicted_xfip1, lower_xfip1, upper_xfip1,
     Season2, xFIP2, predicted_xfip2, lower_xfip2, upper_xfip2,
     Season3, xFIP3, predicted_xfip3, lower_xfip3, upper_xfip3
@@ -164,6 +165,7 @@ predictions1 <- fangraphs_clean %>%
     upper_xfip1 = upper_xfip1 * sd_xfip + mean_xfip
   ) %>% 
   select(
+    Name,
     Season, xFIP, predicted_xfip1, lower_xfip1, upper_xfip1
   )
 
