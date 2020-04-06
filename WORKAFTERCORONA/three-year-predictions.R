@@ -61,7 +61,10 @@ xfip_model %>%
 
 one_year <- one_year %>% 
   mutate(
-    predicted_xfip1 = xfip_model %>% predict()
+    predicted_xfip1 = xfip_model %>% predict(),
+    # 95% confidence interval
+    lower_xfip1 = (xfip_model %>% predict(interval = "confidence"))[, 2],
+    upper_xfip1 = (xfip_model %>% predict(interval = "confidence"))[, 3]
   ) # predicting xFIP in the row!!:)
 
 # Two year predictions ----------------------
@@ -88,7 +91,12 @@ two_year <- two_year %>%
 # needs to be separate from above
 two_year <- two_year %>% 
   mutate(
-    predicted_xfip2 = xfip_model %>% predict(newdata = two_year)
+    predicted_xfip2 = xfip_model %>% predict(newdata = two_year),
+    # 95% confidence interval
+    lower_xfip2 = (xfip_model %>% predict(newdata = two_year,
+                                          interval = "confidence"))[, 2],
+    upper_xfip2 = (xfip_model %>% predict(newdata = two_year,
+                                          interval = "confidence"))[, 3]
   )
 
 # Three year predictions ----------------------
@@ -115,20 +123,84 @@ three_year <- three_year %>%
 # needs to be separate from above
 three_year <- three_year %>% 
   mutate(
-    predicted_xfip3 = xfip_model %>% predict(newdata = three_year)
+    predicted_xfip3 = xfip_model %>% predict(newdata = three_year),
+    # 95% confidence interval
+    lower_xfip3 = (xfip_model %>% predict(newdata = three_year,
+                                          interval = "confidence"))[, 2],
+    upper_xfip3 = (xfip_model %>% predict(newdata = three_year,
+                                          interval = "confidence"))[, 3]
   )
 
-# Analysis of predictions -----------------
+# Prediction Table -----------------
 
 predictions <- three_year %>% 
   group_by(Name) %>% 
   mutate(
     xFIP2 = lead(xFIP),
-    xFIP3 = lead(xFIP, n = 2)
+    xFIP3 = lead(xFIP, n = 2),
+    Season2 = lead(Season),
+    Season3 = lead(Season, n = 2)
   ) %>% 
   ungroup() %>% 
   select(
-    xFIP, predicted_xfip1, 
-    xFIP2, predicted_xfip2, 
-    xFIP3, predicted_xfip3
+    Season, xFIP, predicted_xfip1, lower_xfip1, upper_xfip1,
+    Season2, xFIP2, predicted_xfip2, lower_xfip2, upper_xfip2,
+    Season3, xFIP3, predicted_xfip3, lower_xfip3, upper_xfip3
   )
+
+# De-standardize xFIP -----------------
+
+predictions1 <- fangraphs_clean %>% 
+  group_by(Season) %>% 
+  summarise(
+    mean_xfip = mean(xFIP),
+    sd_xfip = sd(xFIP)
+  ) %>% 
+  right_join(predictions) %>% 
+  mutate(
+    xFIP = xFIP * sd_xfip + mean_xfip,
+    predicted_xfip1 = predicted_xfip1 * sd_xfip + mean_xfip,
+    lower_xfip1 = lower_xfip1 * sd_xfip + mean_xfip,
+    upper_xfip1 = upper_xfip1 * sd_xfip + mean_xfip
+  ) %>% 
+  select(
+    Season, xFIP, predicted_xfip1, lower_xfip1, upper_xfip1
+  )
+
+predictions2 <- fangraphs_clean %>% 
+  rename(Season2 = Season) %>% 
+  group_by(Season2) %>% 
+  summarise(
+    mean_xfip = mean(xFIP),
+    sd_xfip = sd(xFIP)
+  ) %>% 
+  right_join(predictions) %>% 
+  mutate(
+    xFIP2 = xFIP2 * sd_xfip + mean_xfip,
+    predicted_xfip2 = predicted_xfip2 * sd_xfip + mean_xfip,
+    lower_xfip2 = lower_xfip2 * sd_xfip + mean_xfip,
+    upper_xfip2 = upper_xfip2 * sd_xfip + mean_xfip
+  ) %>% 
+  select(
+    Season2, xFIP2, predicted_xfip2, lower_xfip2, upper_xfip2
+  )
+
+predictions3 <- fangraphs_clean %>% 
+  rename(Season3 = Season) %>% 
+  group_by(Season3) %>% 
+  summarise(
+    mean_xfip = mean(xFIP),
+    sd_xfip = sd(xFIP)
+  ) %>% 
+  right_join(predictions) %>% 
+  mutate(
+    xFIP3 = xFIP3 * sd_xfip + mean_xfip,
+    predicted_xfip3 = predicted_xfip3 * sd_xfip + mean_xfip,
+    lower_xfip3 = lower_xfip3 * sd_xfip + mean_xfip,
+    upper_xfip3 = upper_xfip3 * sd_xfip + mean_xfip
+  ) %>% 
+  select(
+    Season3, xFIP3, predicted_xfip3, lower_xfip3, upper_xfip3
+  )
+
+predictions <- cbind(predictions1, predictions2, predictions3)
