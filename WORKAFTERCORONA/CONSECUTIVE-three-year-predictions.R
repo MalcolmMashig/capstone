@@ -54,18 +54,50 @@ one_year <- one_year %>%
 xfip_model <- one_year %>% 
   lm(
     formula = xFIP ~ predicted_fbp1 + predicted_fbv1 + lag_age + lag_xfip
-  ) 
+  )
+
+xfip_model2 <- one_year %>% 
+  lm(
+    formula = xFIP ~ predicted_fbp1 + predicted_fbv1 + lag_age + lag_xfip +
+      lag_xfip2
+  )
+
+xfip_model3 <- one_year %>% 
+  lm(
+    formula = xFIP ~ predicted_fbp1 + predicted_fbv1 + lag_age + lag_xfip +
+      lag_xfip2 + lag_xfip3
+  )
 
 xfip_model %>% 
   summary()
 
-one_year <- one_year %>% 
+one_year1 <- one_year %>% 
+  filter(is.na(lag_xfip2))
+
+one_year1 <- one_year1 %>% 
   mutate(
-    predicted_xfip1 = xfip_model %>% predict(),
+    predicted_xfip1 = xfip_model %>% predict(newdata = one_year1),
     # 95% confidence interval
-    lower_xfip1 = (xfip_model %>% predict(interval = "confidence"))[, 2],
-    upper_xfip1 = (xfip_model %>% predict(interval = "confidence"))[, 3]
-  ) # predicting xFIP in the row!!:)
+    lower_xfip1 = (xfip_model %>% predict(newdata = one_year1,
+                                          interval = "confidence"))[, 2],
+    upper_xfip1 = (xfip_model %>% predict(newdata = one_year1,
+                                          interval = "confidence"))[, 3]
+  )
+
+one_year2 <- one_year %>% 
+  filter(!is.na(lag_xfip2))
+
+one_year2 %>% 
+  mutate(
+    predicted_xfip1 = xfip_model2 %>% predict(newdata = one_year2),
+    # 95% confidence interval
+    lower_xfip1 = (xfip_model2 %>% predict(newdata = one_year2,
+                                           interval = "confidence"))[, 2],
+    upper_xfip1 = (xfip_model2 %>% predict(newdata = one_year2,
+                                           interval = "confidence"))[, 3]
+  )
+
+one_year <- bind_rows(one_year1, one_year2)
 
 # Two year predictions ----------------------
 
@@ -79,6 +111,7 @@ two_year <- one_year %>%
       # between(lag_age, 28, 30) ~ "prime",
       lag_age >= 28 ~ "old"
     ),
+    lag_xfip2 = lag_xfip,
     lag_xfip = predicted_xfip1
   )
 
@@ -91,11 +124,11 @@ two_year <- two_year %>%
 # needs to be separate from above
 two_year <- two_year %>% 
   mutate(
-    predicted_xfip2 = xfip_model %>% predict(newdata = two_year),
+    predicted_xfip2 = xfip_model2 %>% predict(newdata = two_year),
     # 95% confidence interval
-    lower_xfip2 = (xfip_model %>% predict(newdata = two_year,
+    lower_xfip2 = (xfip_model2 %>% predict(newdata = two_year,
                                           interval = "confidence"))[, 2],
-    upper_xfip2 = (xfip_model %>% predict(newdata = two_year,
+    upper_xfip2 = (xfip_model2 %>% predict(newdata = two_year,
                                           interval = "confidence"))[, 3]
   )
 
@@ -111,6 +144,8 @@ three_year <- two_year %>%
       # between(lag_age, 28, 30) ~ "prime",
       lag_age >= 28 ~ "old"
     ),
+    lag_xfip3 = lag_xfip2,
+    lag_xfip2 = lag_xfip,
     lag_xfip = predicted_xfip2
   )
 
@@ -123,11 +158,11 @@ three_year <- three_year %>%
 # needs to be separate from above
 three_year <- three_year %>% 
   mutate(
-    predicted_xfip3 = xfip_model %>% predict(newdata = three_year),
+    predicted_xfip3 = xfip_model3 %>% predict(newdata = three_year),
     # 95% confidence interval
-    lower_xfip3 = (xfip_model %>% predict(newdata = three_year,
+    lower_xfip3 = (xfip_model3 %>% predict(newdata = three_year,
                                           interval = "confidence"))[, 2],
-    upper_xfip3 = (xfip_model %>% predict(newdata = three_year,
+    upper_xfip3 = (xfip_model3 %>% predict(newdata = three_year,
                                           interval = "confidence"))[, 3]
   )
 
@@ -143,7 +178,7 @@ predictions <- three_year %>%
   ) %>% 
   ungroup() %>% 
   select(
-    Name, 
+    Name,
     Season, xFIP, predicted_xfip1, lower_xfip1, upper_xfip1,
     Season2, xFIP2, predicted_xfip2, lower_xfip2, upper_xfip2,
     Season3, xFIP3, predicted_xfip3, lower_xfip3, upper_xfip3
