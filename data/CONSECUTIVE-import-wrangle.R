@@ -41,20 +41,7 @@ fangraphs_clean <- fangraphs_raw %>%
   filter(IP >= ip_min) %>% 
   group_by(Name) %>% 
   mutate(experience = row_number()) %>% 
-  ungroup()
-
-fangraphs_stdz <- fangraphs_clean %>% 
-  filter(Season > 2001) %>% 
-  group_by(Season) %>% 
-  mutate_at(
-    .vars = vars(ERA, `K/9`:FIP, WAR:xFIP, `H/9`:`HR/9`, 
-                 Flyball_percent, `K%`:`BB%`, `FB%`, `FBv`),
-    .funs = scale
-  ) %>% 
-  ungroup()
-
-# get consecutive year groupings
-fangraphs_stdz <- fangraphs_stdz %>% 
+  ungroup() %>% 
   group_by(Name) %>% 
   mutate(
     skip = (seasons != lag(seasons) + 1) %>% as.numeric(),
@@ -62,11 +49,34 @@ fangraphs_stdz <- fangraphs_stdz %>%
     consecutive_span = cumsum(skip)
   ) %>% 
   ungroup() %>% 
+  rename(FBP = `FB%`) %>% 
+  group_by(Name, consecutive_span) %>% 
+  mutate(lag_xfip = lag(xFIP),
+         lag_xfip2 = lag(xFIP, n = 2),
+         lag_xfip3 = lag(xFIP, n = 3),
+         lag_fbv = lag(FBv),
+         lag_fbp = lag(FBP),
+         lag_fbv2 = lag(FBv, n = 2),
+         lag_fbp2 = lag (FBP, n = 2),
+         lag_age = lag(Age)) %>% 
+  ungroup()
+
+fangraphs_stdz <- fangraphs_clean %>% 
+  filter(Season > 2001) %>% 
+  group_by(Season) %>% 
+  mutate_at(
+    .vars = vars(ERA, `K/9`:FIP, WAR:xFIP, `H/9`:`HR/9`, 
+                 Flyball_percent, `K%`:`BB%`, FBP, `FBv`),
+    .funs = scale
+  ) %>% 
+  ungroup()
+
+# get consecutive year groupings
+fangraphs_stdz <- fangraphs_stdz %>% 
   select(-skip)
 
 # Add lag(xfip) -1,2,3
 fangraphs_stdz <- fangraphs_stdz %>% 
-  rename(FBP = `FB%`) %>% 
   group_by(Name, consecutive_span) %>% 
   mutate(lag_xfip = lag(xFIP),
          lag_xfip2 = lag(xFIP, n = 2),
