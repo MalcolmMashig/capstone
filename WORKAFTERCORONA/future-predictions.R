@@ -138,5 +138,11 @@ predictions <- fangraphs_clean %>%
 
 predictions <- fangraphs_clean %>% 
   filter(Season == 2019) %>% 
-  select(Name, xFIP, lag_xfip) %>% 
+  select(Name, Team, lag_xfip, Age, FBv, FBP, xFIP) %>% 
   right_join(predictions)
+
+
+help(colnames)
+
+predictions = select(predictions, !contains("Season"))
+colnames(predictions) = c("Name", "Team", "2018 xFIP", "2019 Age", "2019 FBV", "2019 FBP", "2019 xFIP", "2020 xFIP (Predicted)", "2021 xFIP (Predicted)", "2022 xFIP (Predicted)")
