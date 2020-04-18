@@ -172,7 +172,7 @@ predictionsURLS <- merge(predictions, mlbdata, by = "Name")
 
 ## Manually update names
 predictions[14, 2] <- "Brewers"
-predictions[73,2] <- "---"
+predictions[73,2] <- "- - -"
 predictions[75,2] <- "Blue Jays"
 predictions[79,2] <- "Braves"
 predictions[80,2] <- "White Sox"
@@ -205,3 +205,6 @@ predictions[65,2] <- "Diamondbacks"
 predictions[66,2] <- "Padres"
 predictions[131,2] <- "Astros"
 predictions[132,2] <- "Phillies"
+
+## league average is only the 2019 value for now!
+leagueAverageXFIP = mean(predictions$`2019 xFIP`, na.rm = TRUE)
