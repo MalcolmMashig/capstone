@@ -154,4 +154,8 @@ predictions <-  predictions %>%
     "2020 xFIP (Predicted)" = predicted_xfip1,
     "2021 xFIP (Predicted)" = predicted_xfip2,
     "2022 xFIP (Predicted)" = predicted_xfip3
+  ) %>% 
+  mutate(
+    "2019 FBP" = str_c(`2019 FBP`, " %"),
+    "2019 FBV" = str_c(`2019 FBV`, " mph")
   )
