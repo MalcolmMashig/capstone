@@ -35,6 +35,7 @@ ui <- fluidPage(
   ),
   htmlOutput("picture"),
   DT::dataTableOutput("table"),
+  tableOutput("stats"),
   plotOutput("plot")
 )
 
@@ -42,11 +43,13 @@ ui <- fluidPage(
 server <- function(input, output) {
   
   output$picture <- renderText({
-    src <- predictionsURLS %>% 
-      filter(Name == input$sp) %>% 
-      select(URL) %>% 
-      as_vector()
-    c('<img src="',src,'" align="middle" width = 106.5 height = 160>')
+    if (input$sp != "All") {
+      src <- predictionsURLS %>% 
+        filter(Name == input$sp) %>% 
+        select(URL) %>% 
+        as_vector()
+      c('<img src="',src,'" align="middle" width = 106.5 height = 160>')
+    }
     })
   
   # Filter data based on selections
@@ -59,6 +62,23 @@ server <- function(input, output) {
       predictions[predictions$Team == input$team,]
     }
   }))
+  
+  output$stats <- renderTable({
+    if (input$sp == "All" & input$team == "All") {
+    } else if (input$sp != "All") {
+      fangraphs_clean %>% 
+        filter(Name == input$sp) %>% 
+        mutate(Season = as.integer(Season),
+               Age = as.integer(Age),
+               IP = as.integer(IP)) %>% 
+        select(
+          Season, Team, 
+          Age, IP, ERA, WHIP, 
+          FIP, xFIP, `K/BB`, WAR
+        )
+    } else {
+    }
+  })
   
   output$plot <- renderPlot({
     if (input$sp != "All") {
