@@ -25,7 +25,7 @@ ui <- fluidPage(
     column(4,
            selectInput("sp",
                        "Starting Pitcher:",
-                         unique(as.character(predictions$Name)))
+                         c("All", unique(as.character(predictions$Name))))
     )
   ),
   # Create a new row for the table.
@@ -37,7 +37,11 @@ server <- function(input, output) {
   
   # Filter data based on selections
   output$table <- DT::renderDataTable(DT::datatable({
-    predictions[predictions$Name == input$sp,]
+    if (input$sp == "All") {
+      predictions
+    } else {
+      predictions[predictions$Name == input$sp,]
+    }
   }))
   
 }

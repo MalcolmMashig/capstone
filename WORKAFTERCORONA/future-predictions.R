@@ -132,9 +132,9 @@ predictions <- fangraphs_clean %>%
   right_join(predictions) %>% 
   mutate(
     # xFIP = xFIP * sd_xfip + mean_xfip, # NOT REAL de-standardized
-    predicted_xfip1 = predicted_xfip1 * sd_xfip + mean_xfip,
-    predicted_xfip2 = predicted_xfip2 * sd_xfip + mean_xfip,
-    predicted_xfip3 = predicted_xfip3 * sd_xfip + mean_xfip
+    predicted_xfip1 = round(predicted_xfip1 * sd_xfip + mean_xfip, 2),
+    predicted_xfip2 = round(predicted_xfip2 * sd_xfip + mean_xfip, 2),
+    predicted_xfip3 = round(predicted_xfip3 * sd_xfip + mean_xfip, 2)
   ) %>% 
   select(-sd_xfip, -mean_xfip)
 
