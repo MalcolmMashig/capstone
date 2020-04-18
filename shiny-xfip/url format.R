@@ -36,3 +36,4 @@ for (i in 1:nrow(mlbids)) {
 fangraphs_urls
 mlb_urls
 
+mlbdata['URL'] = mlb_urls
