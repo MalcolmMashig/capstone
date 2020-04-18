@@ -12,6 +12,11 @@ here::here(
 ) %>% 
   source()
 
+here::here(
+  'shiny-xfip', 'url format.R'
+) %>% 
+  source()
+
 future <- fangraphs_stdz %>% 
   filter(Season == 2019)
 
@@ -159,3 +164,7 @@ predictions <-  predictions %>%
     "2019 FBP" = str_c(`2019 FBP`, " %"),
     "2019 FBV" = str_c(`2019 FBV`, " mph")
   )
+
+
+
+predictionsURLS <- merge(predictions, mlbdata, by = "Name")
