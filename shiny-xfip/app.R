@@ -16,28 +16,27 @@ here::here(
 ) %>% 
   source()
 
-# Define UI for application that draws a histogram
-ui <- fluidPage(
-  titlePanel("Three Year xFIP Predictions"),
-  
-  # Create a new Row in the UI for selectInputs
-  fluidRow(
-    column(4,
-           selectInput("sp",
-                       "Starting Pitcher:",
-                         c("All", unique(as.character(sort(predictions$Name)))))
-    ),
-    column(4,
-           selectInput("team",
-                       "Team:",
-                       c("All", unique(as.character(sort(predictions$Team)))))
-    )
-  ),
-  htmlOutput("picture"),
-  DT::dataTableOutput("table"),
-  tableOutput("stats"),
-  plotOutput("plot")
-)
+
+ui <- navbarPage("Capstone Project",
+        tabPanel("Home"),
+        tabPanel("Predictions",
+          fluidPage(
+            titlePanel("Three Year xFIP Predictions"),
+            fluidRow(
+              column(4,
+                  selectInput("sp",
+                              "Starting Pitcher:",
+                          c("All", unique(as.character(sort(predictions$Name)))))),
+              column(4,
+                  selectInput("team",
+                              "Team:",
+                          c("All", unique(as.character(sort(predictions$Team))))))
+                      ),
+            htmlOutput("picture"),
+            DT::dataTableOutput("table"),
+            tableOutput("stats"),
+            plotOutput("plot"))),
+        tabPanel("Calculator"))
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
