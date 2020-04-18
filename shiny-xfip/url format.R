@@ -12,7 +12,7 @@ ids[1,]
 
 urls = 1:length(players_clean)
 for (i in 1:length(players_clean)) {
-  urls[i] = paste("https://www.fangraph.com/players/", players_clean[i], '/', ids[i,], sep = "")
+  urls[i] = paste("https://www.fangraphs.com/players/", players_clean[i], '/', ids[i,], sep = "")
 }
 
 urls
