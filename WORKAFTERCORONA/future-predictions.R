@@ -170,6 +170,38 @@ predictionsURLS <- merge(predictions, mlbdata, by = "Name")
 
 
 
-## Update names
-predictions
-predictions[predictions["Name"] == "Aaron Brooks"]
+## Manually update names
+predictions[14, 2] <- "Brewers"
+predictions[73,2] <- "---"
+predictions[75,2] <- "Blue Jays"
+predictions[79,2] <- "Braves"
+predictions[80,2] <- "White Sox"
+predictions[21,2] <- "Dodgers"
+predictions[23,2] <- "Giants"
+predictions[82,2] <- "Angels"
+predictions[24,2] <- "Brewers"
+predictions[85,2] <- "Yankees"
+predictions[86,2] <- "White Sox"
+predictions[87,2] <- "Twins"
+predictions[88,2] <- "Dodgers"
+predictions[89,2] <- "Tigers"
+predictions[97,2] <- "Twins"
+predictions[33,2] <- "Rangers"
+predictions[103,2] <- "Angels"
+predictions[105,2] <- "Twins"
+predictions[106,2] <- "Giants"
+predictions[108,2] <- "Rangers"
+predictions[112,2] <- "Diamondbacks"
+predictions[113,2] <- "Mets"
+predictions[37,2] <- "Red Sox"
+predictions[117,2] <- "Mets"
+predictions[121,2] <- "Diamondbacks"
+predictions[123,2] <- "Mets"
+predictions[127,2] <- "Blue Jays"
+predictions[128,2] <- "Reds"
+predictions[57,2] <- "Rays"
+predictions[130,2] <- "Reds"
+predictions[65,2] <- "Diamondbacks"
+predictions[66,2] <- "Padres"
+predictions[131,2] <- "Astros"
+predictions[132,2] <- "Phillies"
