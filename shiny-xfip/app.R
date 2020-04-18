@@ -84,7 +84,7 @@ server <- function(input, output) {
         geom_point(aes(year, xFIP, color = Name), size = 5) +
         theme(axis.title.x = element_text(size = 30, face = "bold"),
               axis.text.x = element_text(size = 22),
-              axis.title.y = element_text(size = 30, face = "bold"),
+              axis.title.y = element_text(angle = 0, size = 30, face = "bold"),
               axis.text.y = element_text(size = 22),
               legend.title = element_text(size = 25, face = "bold"),
               legend.text = element_text(size = 20)) +
