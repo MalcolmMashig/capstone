@@ -145,7 +145,7 @@ predictions <- fangraphs_clean %>%
 
 predictions <-  predictions %>% 
   select(
-    Name, Team, 
+    Name, Team,
     "2018 xFIP" = lag_xfip,
     "2019 Age" = Age,
     "2019 FBV" = FBv,
