@@ -57,8 +57,10 @@ fangraphs_clean <- fangraphs_raw %>%
          lag_fbv = lag(FBv),
          lag_fbp = lag(FBP),
          lag_fbv2 = lag(FBv, n = 2),
-         lag_fbp2 = lag (FBP, n = 2),
-         lag_age = lag(Age)) %>% 
+         lag_fbp2 = lag(FBP, n = 2),
+         lag_age = lag(Age),
+         xFIP2 = lead(xFIP),
+         xFIP3 = lead(xFIP, 2)) %>% 
   ungroup()
 
 fangraphs_stdz <- fangraphs_clean %>% 

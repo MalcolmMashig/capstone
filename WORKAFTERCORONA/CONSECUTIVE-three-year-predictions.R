@@ -187,60 +187,92 @@ predictions <- three_year %>%
 # De-standardize xFIP -----------------
 
 predictions1 <- fangraphs_clean %>% 
+  mutate(Season = Season + 1) %>% 
   group_by(Season) %>% 
   summarise(
-    mean_xfip = mean(xFIP),
-    sd_xfip = sd(xFIP)
+    # mean_xfip = mean(xFIP),
+    # sd_xfip = sd(xFIP)
+    sd_xfip = sqrt((var(xFIP, na.rm = TRUE) + var(lag_xfip, na.rm = TRUE) +
+      var(lag_xfip2, na.rm = TRUE)) / 3),
+    mean_xfip = (mean(xFIP, na.rm = TRUE) + mean(lag_xfip, na.rm = TRUE) +
+      mean(lag_xfip2, na.rm = TRUE)) / 3
   ) %>% 
-  right_join(predictions) %>% 
+  ungroup() %>% 
+  right_join(predictions) %>%
   mutate(
-    xFIP = xFIP * sd_xfip + mean_xfip,
     predicted_xfip1 = predicted_xfip1 * sd_xfip + mean_xfip,
     lower_xfip1 = lower_xfip1 * sd_xfip + mean_xfip,
     upper_xfip1 = upper_xfip1 * sd_xfip + mean_xfip
   ) %>% 
+  select(-xFIP)
+
+predictions1 <- fangraphs_clean %>% 
+  select(Name, Season, xFIP) %>% 
+  right_join(predictions1) %>% 
   select(
     Name,
     Season, xFIP, predicted_xfip1, lower_xfip1, upper_xfip1
   )
 
 predictions2 <- fangraphs_clean %>% 
-  rename(Season2 = Season) %>% 
-  group_by(Season2) %>% 
+  mutate(Season = Season + 1) %>% 
+  group_by(Season) %>% 
   summarise(
-    mean_xfip = mean(xFIP),
-    sd_xfip = sd(xFIP)
+    # mean_xfip = mean(xFIP),
+    # sd_xfip = sd(xFIP)
+    sd_xfip = sqrt((var(xFIP, na.rm = TRUE) + var(lag_xfip, na.rm = TRUE) +
+      var(lag_xfip2, na.rm = TRUE)) / 3),
+    mean_xfip = (mean(xFIP, na.rm = TRUE) + mean(lag_xfip, na.rm = TRUE) +
+      mean(lag_xfip2, na.rm = TRUE)) / 3
   ) %>% 
+  ungroup() %>% 
   right_join(predictions) %>% 
   mutate(
-    xFIP2 = xFIP2 * sd_xfip + mean_xfip,
     predicted_xfip2 = predicted_xfip2 * sd_xfip + mean_xfip,
     lower_xfip2 = lower_xfip2 * sd_xfip + mean_xfip,
     upper_xfip2 = upper_xfip2 * sd_xfip + mean_xfip
   ) %>% 
+  select(-xFIP2)
+
+predictions2 <- fangraphs_clean %>% 
+  select(Name, Season, xFIP2) %>% 
+  right_join(predictions2) %>% 
   select(
-    Season2, xFIP2, predicted_xfip2, lower_xfip2, upper_xfip2
+    Name,
+    Season, xFIP2, predicted_xfip2, lower_xfip2, upper_xfip2
   )
 
 predictions3 <- fangraphs_clean %>% 
-  rename(Season3 = Season) %>% 
-  group_by(Season3) %>% 
+  mutate(Season = Season + 1) %>% 
+  group_by(Season) %>% 
   summarise(
-    mean_xfip = mean(xFIP),
-    sd_xfip = sd(xFIP)
+    # mean_xfip = mean(xFIP),
+    # sd_xfip = sd(xFIP)
+    sd_xfip = sqrt((var(xFIP, na.rm = TRUE) + var(lag_xfip, na.rm = TRUE) +
+      var(lag_xfip2, na.rm = TRUE)) / 3),
+    mean_xfip = (mean(xFIP, na.rm = TRUE) + mean(lag_xfip, na.rm = TRUE) +
+      mean(lag_xfip2, na.rm = TRUE)) / 3
   ) %>% 
+  ungroup() %>% 
   right_join(predictions) %>% 
   mutate(
-    xFIP3 = xFIP3 * sd_xfip + mean_xfip,
     predicted_xfip3 = predicted_xfip3 * sd_xfip + mean_xfip,
     lower_xfip3 = lower_xfip3 * sd_xfip + mean_xfip,
     upper_xfip3 = upper_xfip3 * sd_xfip + mean_xfip
   ) %>% 
+  select(-xFIP3)
+
+predictions3 <- fangraphs_clean %>% 
+  select(Name, Season, xFIP3) %>% 
+  right_join(predictions3) %>% 
   select(
-    Season3, xFIP3, predicted_xfip3, lower_xfip3, upper_xfip3
+    Name,
+    Season, xFIP3, predicted_xfip3, lower_xfip3, upper_xfip3
   )
 
-predictions <- cbind(predictions1, predictions2, predictions3)
+predictions <- predictions1 %>% 
+  left_join(predictions2) %>% 
+  left_join(predictions3)
 
 RMSE <- function(predicted, actual){
   sqrt(mean((predicted - actual)^2, na.rm = TRUE))

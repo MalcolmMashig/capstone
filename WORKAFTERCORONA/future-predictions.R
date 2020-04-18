@@ -126,6 +126,8 @@ predictions <- fangraphs_clean %>%
       var(lag_xfip2, na.rm = TRUE)) / 3),
     mean_xfip = (mean(xFIP, na.rm = TRUE) + mean(lag_xfip, na.rm = TRUE) +
       mean(lag_xfip2, na.rm = TRUE)) / 3
+    # sd_xfip = sd(xFIP),
+    # mean_xfip = mean(xFIP)
   ) %>% 
   right_join(predictions) %>% 
   mutate(
@@ -141,8 +143,15 @@ predictions <- fangraphs_clean %>%
   select(Name, Team, lag_xfip, Age, FBv, FBP, xFIP) %>% 
   right_join(predictions)
 
-
-help(colnames)
-
-predictions = select(predictions, !contains("Season"))
-colnames(predictions) = c("Name", "Team", "2018 xFIP", "2019 Age", "2019 FBV", "2019 FBP", "2019 xFIP", "2020 xFIP (Predicted)", "2021 xFIP (Predicted)", "2022 xFIP (Predicted)")
+predictions <-  predictions %>% 
+  select(
+    Name, Team, 
+    "2018 xFIP" = lag_xfip,
+    "2019 Age" = Age,
+    "2019 FBV" = FBv,
+    "2019 FBP" = FBP,
+    "2019 xFIP" = xFIP,
+    "2020 xFIP (Predicted)" = predicted_xfip1,
+    "2021 xFIP (Predicted)" = predicted_xfip2,
+    "2022 xFIP (Predicted)" = predicted_xfip3
+  )
