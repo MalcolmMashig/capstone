@@ -1,15 +1,13 @@
-<<<<<<< HEAD
-/Users/jordandenish/Desktop/Job Applications/Big League Advance/PredictiveModelingAssessment.r="BD1A28A8"
-/Users/jordandenish/Desktop/STAT 3080/Notes/3 - Graphics in R.R="117EB283"
-=======
-<<<<<<< HEAD
 /Users/devanbose/Google Drive/2nd Year/STAT 3080/Class Notes/Unit1Script.R="B4DA7FCB"
+/Users/devanbose/Google Drive/2nd Year/STAT 4996/Github Folder/WORKAFTERCORONA/CONSECUTIVE-three-year-predictions.R="65172780"
 /Users/devanbose/Google Drive/2nd Year/STAT 4996/Github Folder/WORKAFTERCORONA/Cluster.R="42BDD88D"
 /Users/devanbose/Google Drive/2nd Year/STAT 4996/Github Folder/WORKAFTERCORONA/Full Model - JD.R="79C6FC26"
 /Users/devanbose/Google Drive/2nd Year/STAT 4996/Github Folder/WORKAFTERCORONA/Submodels.R="B08A3677"
+/Users/devanbose/Google Drive/2nd Year/STAT 4996/Github Folder/WORKAFTERCORONA/future-predictions.R="86F142D7"
 /Users/devanbose/Google Drive/2nd Year/STAT 4996/Github Folder/WORKAFTERCORONA/lagged_comparison.R="1410A0BC"
 /Users/devanbose/Google Drive/2nd Year/STAT 4996/Github Folder/WORKAFTERCORONA/multiple_years_back.R="C4621B6B"
 /Users/devanbose/Google Drive/2nd Year/STAT 4996/Github Folder/WORKAFTERCORONA/sim.R="209D0D1E"
+/Users/devanbose/Google Drive/2nd Year/STAT 4996/Github Folder/WORKAFTERCORONA/three-year-predictions.R="4DB6F616"
 /Users/devanbose/Google Drive/2nd Year/STAT 4996/Github Folder/basic regression model/LR_0203.R="E891E2E3"
 /Users/devanbose/Google Drive/2nd Year/STAT 4996/Github Folder/basic regression model/SimpleLinearRegression2018-19.R="77442727"
 /Users/devanbose/Google Drive/2nd Year/STAT 4996/Github Folder/data/Complete Data Wrangle.R="BC29CA62"
@@ -20,24 +18,3 @@
 /Users/devanbose/Google Drive/2nd Year/STAT 4996/Github Folder/data/Initial Data Wrangle.R="44777356"
 /Users/devanbose/Google Drive/2nd Year/STAT 4996/Github Folder/data/import-wrangle.R="F6137279"
 /Users/devanbose/Google Drive/2nd Year/STAT 4996/Github Folder/spaghetti/spaghetti.R="7AE3AECA"
-=======
-<<<<<<< HEAD
->>>>>>> f5491b8fb33d342b54022dd51497d494b249b38d
-/Users/jordandenish/Desktop/STAT 4630/Labs/Lab 5.R="4A1B94B6"
-/Users/jordandenish/Desktop/STAT 4630/Labs/Lab 6 groupwork.R="CAB36460"
-/Users/jordandenish/Desktop/STAT 4630/Labs/Lab2b.Rmd="97BE4681"
-/Users/jordandenish/Desktop/STAT 4630/Labs/Lab4b.R="25217678"
-/Users/jordandenish/Desktop/STAT 4630/Notes/R Notes/04e_example_iris.R="4EF2D34C"
-/Users/jordandenish/Desktop/STAT 4630/Notes/R Notes/05a_example_wage.R="6538D09E"
-/Users/jordandenish/Desktop/STAT 4996/.Rhistory="3D49471D"
->>>>>>> 7ff8df82361ec17d01f2cdf0e1cb620c13cda096
-/Users/jordandenish/Desktop/STAT 4996/01-import-wrangle.R="5CBEDC22"
-/Users/jordandenish/Desktop/STAT 4996/capstone/WORKAFTERCORONA/Cluster.R="560CC47B"
-/Users/jordandenish/Desktop/STAT 4996/capstone/WORKAFTERCORONA/Full Model - JD.R="49B956A6"
-/Users/jordandenish/Desktop/STAT 4996/capstone/WORKAFTERCORONA/Submodels.R="E5DDF9BA"
-/Users/jordandenish/Desktop/STAT 4996/capstone/WORKAFTERCORONA/lagged_comparison.R="B90CAD9"
-/Users/jordandenish/Desktop/STAT 4996/capstone/WORKAFTERCORONA/three-year-predictions.R="72EF17B8"
-/Users/jordandenish/Desktop/STAT 4996/capstone/data/Complete Data Wrangle.R="30E4403E"
-/Users/jordandenish/Desktop/STAT 4996/capstone/data/import-wrangle.R="351F066B"
-/Users/jordandenish/Desktop/STAT 4996/capstone/eda/db-eda.R="9A0BD2EA"
-/Users/jordandenish/Desktop/STAT 4996/capstone/eda/jd-eda.R="20992F21"
