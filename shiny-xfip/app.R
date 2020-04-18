@@ -33,12 +33,21 @@ ui <- fluidPage(
                        c("All", unique(as.character(sort(predictions$Team)))))
     )
   ),
+  htmlOutput("picture"),
   DT::dataTableOutput("table"),
   plotOutput("plot")
 )
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
+  
+  output$picture <- renderText({
+    src <- predictionsURLS %>% 
+      filter(Name == input$sp) %>% 
+      select(URL) %>% 
+      as_vector()
+    c('<img src="',src,'" align="middle" width = 106.5 height = 160>')
+    })
   
   # Filter data based on selections
   output$table <- DT::renderDataTable(DT::datatable({
