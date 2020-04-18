@@ -167,3 +167,9 @@ predictions <-  predictions %>%
 
 ## Have access without URLs
 predictionsURLS <- merge(predictions, mlbdata, by = "Name")
+
+
+
+## Update names
+predictions
+predictions[predictions["Name"] == "Aaron Brooks"]
