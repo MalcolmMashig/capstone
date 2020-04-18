@@ -12,6 +12,11 @@ here::here(
 ) %>% 
   source()
 
+here::here(
+  'shiny-xfip', 'url format.R'
+) %>% 
+  source()
+
 future <- fangraphs_stdz %>% 
   filter(Season == 2019)
 
@@ -145,7 +150,7 @@ predictions <- fangraphs_clean %>%
 
 predictions <-  predictions %>% 
   select(
-    Name, Team, 
+    Name, Team,
     "2018 xFIP" = lag_xfip,
     "2019 Age" = Age,
     "2019 FBV" = FBv,
@@ -159,3 +164,6 @@ predictions <-  predictions %>%
     "2019 FBP" = str_c(`2019 FBP`, " %"),
     "2019 FBV" = str_c(`2019 FBV`, " mph")
   )
+
+## Have access without URLs
+predictionsURLS <- merge(predictions, mlbdata, by = "Name")
