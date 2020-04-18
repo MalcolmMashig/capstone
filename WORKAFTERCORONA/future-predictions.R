@@ -165,6 +165,5 @@ predictions <-  predictions %>%
     "2019 FBV" = str_c(`2019 FBV`, " mph")
   )
 
-
-
+## Have access without URLs
 predictionsURLS <- merge(predictions, mlbdata, by = "Name")
