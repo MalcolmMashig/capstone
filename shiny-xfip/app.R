@@ -33,12 +33,21 @@ ui <- fluidPage(
                        c("All", unique(as.character(sort(predictions$Team)))))
     )
   ),
+  htmlOutput("picture"),
   DT::dataTableOutput("table"),
   plotOutput("plot")
 )
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
+  
+  output$picture <- renderText({
+    src <- predictionsURLS %>% 
+      filter(Name == input$sp) %>% 
+      select(URL) %>% 
+      as_vector()
+    c('<img src="',src,'" align="middle" width = 106.5 height = 160>')
+    })
   
   # Filter data based on selections
   output$table <- DT::renderDataTable(DT::datatable({
@@ -84,7 +93,7 @@ server <- function(input, output) {
         geom_point(aes(year, xFIP, color = Name), size = 5) +
         theme(axis.title.x = element_text(size = 30, face = "bold"),
               axis.text.x = element_text(size = 22),
-              axis.title.y = element_text(size = 30, face = "bold"),
+              axis.title.y = element_text(angle = 0, size = 30, face = "bold"),
               axis.text.y = element_text(size = 22),
               legend.title = element_text(size = 25, face = "bold"),
               legend.text = element_text(size = 20)) +
