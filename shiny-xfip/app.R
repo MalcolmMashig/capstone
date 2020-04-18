@@ -18,18 +18,23 @@ here::here(
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
-  titlePanel("Basic DataTable"),
+  titlePanel("Three Year xFIP Predictions"),
   
   # Create a new Row in the UI for selectInputs
   fluidRow(
     column(4,
            selectInput("sp",
                        "Starting Pitcher:",
-                         c("All", unique(as.character(predictions$Name))))
+                         c("All", unique(as.character(sort(predictions$Name)))))
+    ),
+    column(4,
+           selectInput("team",
+                       "Team:",
+                       c("All", unique(as.character(sort(predictions$Team)))))
     )
   ),
-  # Create a new row for the table.
-  DT::dataTableOutput("table")
+  DT::dataTableOutput("table"),
+  plotOutput("plot")
 )
 
 # Define server logic required to draw a histogram
@@ -37,12 +42,55 @@ server <- function(input, output) {
   
   # Filter data based on selections
   output$table <- DT::renderDataTable(DT::datatable({
-    if (input$sp == "All") {
+    if (input$sp == "All" & input$team == "All") {
       predictions
-    } else {
+    } else if (input$sp != "All") {
       predictions[predictions$Name == input$sp,]
+    } else {
+      predictions[predictions$Team == input$team,]
     }
   }))
+  
+  output$plot <- renderPlot({
+    if (input$sp != "All") {
+      p <- predictions %>% 
+        filter(Name == input$sp)
+      t <- tibble(year = 2018:2022,
+             xFIP = c(p$`2018 xFIP`, p$`2019 xFIP`, 
+                      p$`2020 xFIP (Predicted)`, p$`2021 xFIP (Predicted)`,
+                      p$`2022 xFIP (Predicted)`))
+      t %>% 
+        ggplot() +
+        geom_line(aes(year, xFIP, linetype = year > 2019), size = 2.5) +
+        geom_point(aes(year, xFIP), size = 5, color = "maroon") +
+        theme_linedraw() + 
+        theme(legend.position = "none",
+              axis.title.x = element_text(size = 30, face = "bold"),
+              axis.text.x = element_text(size = 22),
+              axis.title.y = element_text(size = 30, face = "bold"),
+              axis.text.y = element_text(size = 22)) +
+        ylim(2, 7)
+    } else if (input$sp == "All" & input$team == "All") {} else {
+      p <- predictions %>%
+        filter(Team == input$team)
+      t <- p %>%
+        pivot_longer(contains("xFIP"), names_to = "year", values_to = 'xFIP') %>%
+        mutate(year = as.numeric(str_sub(year, 1, 4)))
+      t %>%
+        ggplot() +
+        theme_linedraw() +
+        geom_line(aes(year, xFIP, color = Name, linetype = year > 2019), size = 2.5,
+                  show.legend = FALSE) +
+        geom_point(aes(year, xFIP, color = Name), size = 5) +
+        theme(axis.title.x = element_text(size = 30, face = "bold"),
+              axis.text.x = element_text(size = 22),
+              axis.title.y = element_text(size = 30, face = "bold"),
+              axis.text.y = element_text(size = 22),
+              legend.title = element_text(size = 25, face = "bold"),
+              legend.text = element_text(size = 20)) +
+        ylim(2, 7)
+    }
+  })
   
 }
 
