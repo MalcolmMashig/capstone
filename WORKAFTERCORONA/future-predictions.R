@@ -205,5 +205,16 @@ predictions[131,2] <- "Astros"
 predictions[132,2] <- "Phillies"
 
 ## league average for 2017-2019
-League201719 <- filter(fangraphs_clean, Season == "2019" | Season == "2018" | Season == "2017")
-leagueAverageXFIP = mean(League201719$`xFIP`, na.rm = TRUE)
+League1719 <- filter(fangraphs_clean, Season == "2019" | Season == "2018" | Season == "2017")
+
+leagueAverageXFIP <- League1719 %>% 
+  group_by(Season) %>% 
+  summarise(
+    (mean(xFIP, na.rm = TRUE) + mean(lag_xfip, na.rm = TRUE) +
+    mean(lag_xfip2, na.rm = TRUE)) / 3
+  )
+
+colnames(leagueAverageXFIP) = c("Season", "avgxFIP")
+
+leagueAverageXFIP = leagueAverageXFIP[3,2]
+
