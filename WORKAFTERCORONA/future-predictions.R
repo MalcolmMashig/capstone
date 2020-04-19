@@ -204,5 +204,6 @@ predictions[66,2] <- "Padres"
 predictions[131,2] <- "Astros"
 predictions[132,2] <- "Phillies"
 
-## league average is only the 2019 value for now!
-leagueAverageXFIP = mean(predictions$`2019 xFIP`, na.rm = TRUE)
+## league average for 2017-2019
+League201719 <- filter(fangraphs_clean, Season == "2019" | Season == "2018" | Season == "2017")
+leagueAverageXFIP = mean(League201719$`xFIP`, na.rm = TRUE)
