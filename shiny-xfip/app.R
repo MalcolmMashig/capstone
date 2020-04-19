@@ -16,7 +16,6 @@ here::here(        ## Does the app SOURCE
 ) %>% 
   source()
 
-
 ui <- navbarPage("",
         tabPanel("Home",
           fluidPage(
@@ -72,13 +71,31 @@ ui <- navbarPage("",
 server <- function(input, output) {
   output$calculatedVal <- renderTable({
     calcFuture <- data_frame(lag_xfip = NA, lag_fbv = NA, lag_fbp = NA, lag_age = NA, lag_xfip2 = NA)
-    calcFuture <- calcFuture%>%
+    tnt <- fangraphs_clean %>% 
+      filter(Season == 2019) %>% 
+      summarise(mean_xfip2019 = mean(xFIP),
+                sd_xfip2019 = sd(xFIP),
+                mean_fbv = mean(FBv),
+                sd_fbv = sd(FBv),
+                mean_fbp = mean(FBP),
+                sd_fbp = sd(FBP))
+    
+    tet <- fangraphs_clean %>% 
+      filter(Season == 2018) %>% 
+      summarise(mean_xfip2018 = mean(xFIP),
+                sd_xfip2018 = sd(xFIP))
+    
+    calcFuture <- calcFuture %>%
       mutate(   #### NEED TO STANDARDIZE THE INPUTS FOR THE FUNCTION
         lag_age = input$age,
-        lag_xfip2 = input$lagxfip2,
-        lag_xfip = input$lagxfip,
-        lag_fbv = input$fbv,
-        lag_fbp = input$fbp,
+        lag_xfip2 = (input$lagxfip2 - 
+                       tet$mean_xfip2018) / tet$sd_xfip2018,
+        lag_xfip = (input$lagxfip - 
+                      tnt$mean_xfip2019) / tnt$sd_xfip2019,
+        lag_fbv = (input$fbv - 
+                     tnt$mean_fbv) / tnt$sd_fbv,
+        lag_fbp = (input$fbp - 
+                     tnt$mean_fbp) / tnt$sd_fbp,
         age_range = case_when(
           lag_age < 28 ~ "young",
           # between(lag_age, 28, 30) ~ "prime",
@@ -171,24 +188,24 @@ server <- function(input, output) {
       )
     
     #####  NOW UNSTANDARDIZE
-# 
-#     stdzFuture <- fangraphs_clean %>% 
-#       group_by(Season) %>% 
-#       summarise(
-#         sd_xfip = sqrt((var(xFIP, na.rm = TRUE) + var(lag_xfip, na.rm = TRUE) +
-#                           var(lag_xfip2, na.rm = TRUE)) / 3),
-#         mean_xfip = (mean(xFIP, na.rm = TRUE) + mean(lag_xfip, na.rm = TRUE) +
-#                        mean(lag_xfip2, na.rm = TRUE)) / 3
-#         # sd_xfip = sd(xFIP),
-#         # mean_xfip = mean(xFIP)
-#       ) 
-#     calcFuturePredictions <- calcFuturePredictions%>%
-#       mutate(
-#         # xFIP = xFIP * sd_xfip + mean_xfip, # NOT REAL de-standardized
-#         predicted_xfip1 = round(predicted_xfip1[1] * stdzFuture[36, 2] + stdzFuture[36, 3], 2),
-#         predicted_xfip2 = round(predicted_xfip2[1] * stdzFuture[36, 2] + stdzFuture[36, 3], 2),
-#         predicted_xfip3 = round(predicted_xfip3[1] * stdzFuture[36, 2] + stdzFuture[36, 3], 2)
-#       ) 
+
+    stdzFuture <- fangraphs_clean %>%
+      group_by(Season) %>%
+      summarise(
+        sd_xfip = sqrt((var(xFIP, na.rm = TRUE) + var(lag_xfip, na.rm = TRUE) +
+                          var(lag_xfip2, na.rm = TRUE)) / 3),
+        mean_xfip = (mean(xFIP, na.rm = TRUE) + mean(lag_xfip, na.rm = TRUE) +
+                       mean(lag_xfip2, na.rm = TRUE)) / 3
+        # sd_xfip = sd(xFIP),
+        # mean_xfip = mean(xFIP)
+      )
+    calcFuturePredictions <- calcFuturePredictions %>%
+      mutate(
+        # xFIP = xFIP * sd_xfip + mean_xfip, # NOT REAL de-standardized
+        predicted_xfip1 = round(predicted_xfip1 * stdzFuture[36, 2] %>% as.numeric() + stdzFuture[36, 3] %>% as.numeric(), 2),
+        predicted_xfip2 = round(predicted_xfip2 * stdzFuture[36, 2] %>% as.numeric() + stdzFuture[36, 3] %>% as.numeric(), 2),
+        predicted_xfip3 = round(predicted_xfip3 * stdzFuture[36, 2] %>% as.numeric() + stdzFuture[36, 3] %>% as.numeric(), 2)
+      )
     calcFuturePredictions
     
   })
