@@ -11,7 +11,7 @@ library(shiny)
 library(tidyverse)
 library(here)
 
-here::here(
+here::here(        ## Does the app SOURCE
   'WORKAFTERCORONA', 'future-predictions.R'
 ) %>% 
   source()
@@ -62,15 +62,139 @@ ui <- navbarPage("",
           fluidPage(
             titlePanel("xFIP Prediction Calculator"),
             numericInput("age", "Current Age", 0),
-            numericInput("lagxfip2", "xFIP - 2 Seasons Ago", 0),
-            numericInput("lagxfip1", "xFIP - 1 Season Ago", 0),
-            numericInput("xfip", "Current Season xFIP", 0),
+            numericInput("lagxfip3", "xFIP - 3 Seasons Ago", 0),
+            numericInput("lagxfip2", "xFIP - 2 Season Ago", 0),
+            numericInput("lagxfip", "Current Season xFIP", 0),
             numericInput("fbv", "Current Season FBv", 0),
-            numericInput("fbp", "Current Season FBp", 0)
+            numericInput("fbp", "Current Season FBp", 0),
+            tableOutput("calculatedVal")
           )))
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
+  output$calculatedVal <- renderTable({
+    calcFuture <- data_frame(lag_xfip = NA, lag_fbv = NA, lag_fbp = NA, lag_age = NA, lag_xfip2 = NA, lag_xfip3 = NA)
+    calcFuture <- calcFuture%>%
+      mutate(   #### NEED TO STANDARDIZE THE INPUTS FOR THE FUNCTION
+        lag_age = input$age,
+        lag_xfip3 = input$lagxfip3,
+        lag_xfip2 = input$lagxfip2,
+        lag_xfip = input$lagxfip,
+        lag_fbv = input$fbv,
+        lag_fbp = input$fbp,
+        age_range = case_when(
+          lag_age < 28 ~ "young",
+          # between(lag_age, 28, 30) ~ "prime",
+          lag_age >= 28 ~ "old"
+        )
+      )
+    calcFuture <- calcFuture %>% 
+      mutate(
+        predicted_fbv1 = fbv_submodel %>% predict(newdata = calcFuture),
+        predicted_fbp1 = fbp_submodel %>% predict(newdata = calcFuture)
+      )
+    
+    calcFuture1 <- calcFuture %>% 
+      filter(is.na(lag_xfip2))
+    
+    calcFuture1 <- calcFuture1 %>% 
+      mutate(
+        predicted_xfip1 = xfip_model %>% predict(newdata = calcFuture1)
+      )
+    
+    calcFuture2 <- calcFuture %>% 
+      filter(!is.na(lag_xfip2))
+    
+    calcFuture2 <- calcFuture2 %>% 
+      mutate(
+        predicted_xfip1 = xfip_model2 %>% predict(newdata = calcFuture2)
+      )
+    
+    calcFuture <- bind_rows(calcFuture1, calcFuture2)
+    
+    # Second Prediction ------------------------
+    
+    calcFuture <- calcFuture %>% 
+      mutate(
+        lag_xfip2 = lag_xfip,
+        lag_xfip = predicted_xfip1,
+        lag_fbv = predicted_fbv1,
+        lag_fbp = predicted_fbp1,
+        lag_age = lag_age + 1,
+        age_range = case_when(
+          lag_age < 28 ~ "young",
+          # between(lag_age, 28, 30) ~ "prime",
+          lag_age >= 28 ~ "old"
+        )
+      )
+    
+    calcFuture <- calcFuture %>% 
+      mutate(
+        predicted_fbv2 = fbv_submodel %>% predict(newdata = calcFuture),
+        predicted_fbp2 = fbp_submodel %>% predict(newdata = calcFuture)
+      )
+    
+    calcFuture <- calcFuture %>% 
+      mutate(
+        predicted_xfip2 = xfip_model2 %>% predict(newdata = calcFuture)
+      )
+    
+    # Third Prediction ------------------------
+    
+    calcFuture <- calcFuture %>% 
+      mutate(
+        lag_xfip3 = lag_xfip2,
+        lag_xfip2 = lag_xfip,
+        lag_xfip = predicted_xfip2,
+        lag_fbv = predicted_fbv2,
+        lag_fbp = predicted_fbp2,
+        lag_age = lag_age + 1,
+        age_range = case_when(
+          lag_age < 28 ~ "young",
+          # between(lag_age, 28, 30) ~ "prime",
+          lag_age >= 28 ~ "old"
+        )
+      )
+    
+    calcFuture <- calcFuture %>% 
+      mutate(
+        predicted_fbv3 = fbv_submodel %>% predict(newdata = calcFuture),
+        predicted_fbp3 = fbp_submodel %>% predict(newdata = calcFuture)
+      )
+    
+    calcFuture <- calcFuture %>% 
+      mutate(
+        predicted_xfip3 = xfip_model3 %>% predict(newdata = calcFuture)
+      )
+    
+    calcFuturePredictions <- calcFuture %>% 
+      select(
+        predicted_xfip1, predicted_xfip2, 
+        predicted_xfip3
+      )
+    
+    #####  NOW UNSTANDARDIZE
+# 
+#     stdzFuture <- fangraphs_clean %>% 
+#       group_by(Season) %>% 
+#       summarise(
+#         sd_xfip = sqrt((var(xFIP, na.rm = TRUE) + var(lag_xfip, na.rm = TRUE) +
+#                           var(lag_xfip2, na.rm = TRUE)) / 3),
+#         mean_xfip = (mean(xFIP, na.rm = TRUE) + mean(lag_xfip, na.rm = TRUE) +
+#                        mean(lag_xfip2, na.rm = TRUE)) / 3
+#         # sd_xfip = sd(xFIP),
+#         # mean_xfip = mean(xFIP)
+#       ) 
+#     calcFuturePredictions <- calcFuturePredictions%>%
+#       mutate(
+#         # xFIP = xFIP * sd_xfip + mean_xfip, # NOT REAL de-standardized
+#         predicted_xfip1 = round(predicted_xfip1[1] * stdzFuture[36, 2] + stdzFuture[36, 3], 2),
+#         predicted_xfip2 = round(predicted_xfip2[1] * stdzFuture[36, 2] + stdzFuture[36, 3], 2),
+#         predicted_xfip3 = round(predicted_xfip3[1] * stdzFuture[36, 2] + stdzFuture[36, 3], 2)
+#       ) 
+    calcFuturePredictions
+    
+  })
   
   output$picture <- renderText({
     if (input$sp != "All") {
