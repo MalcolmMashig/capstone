@@ -62,7 +62,6 @@ ui <- navbarPage("",
           fluidPage(
             titlePanel("xFIP Prediction Calculator"),
             numericInput("age", "Current Age", 0),
-            numericInput("lagxfip3", "xFIP - 3 Seasons Ago", 0),
             numericInput("lagxfip2", "xFIP - 2 Season Ago", 0),
             numericInput("lagxfip", "Current Season xFIP", 0),
             numericInput("fbv", "Current Season FBv", 0),
@@ -70,14 +69,12 @@ ui <- navbarPage("",
             tableOutput("calculatedVal")
           )))
 
-# Define server logic required to draw a histogram
 server <- function(input, output) {
   output$calculatedVal <- renderTable({
-    calcFuture <- data_frame(lag_xfip = NA, lag_fbv = NA, lag_fbp = NA, lag_age = NA, lag_xfip2 = NA, lag_xfip3 = NA)
+    calcFuture <- data_frame(lag_xfip = NA, lag_fbv = NA, lag_fbp = NA, lag_age = NA, lag_xfip2 = NA)
     calcFuture <- calcFuture%>%
       mutate(   #### NEED TO STANDARDIZE THE INPUTS FOR THE FUNCTION
         lag_age = input$age,
-        lag_xfip3 = input$lagxfip3,
         lag_xfip2 = input$lagxfip2,
         lag_xfip = input$lagxfip,
         lag_fbv = input$fbv,
@@ -267,7 +264,7 @@ server <- function(input, output) {
         geom_line(aes(year, xFIP, color = Name, linetype = year > 2019), size = 2.5,
                   show.legend = FALSE) +
         geom_hline(aes(yintercept=leagueAverageXFIP)) +
-        geom_text(aes(2020,leagueAverageXFIP, vjust = -1, label = "League Average XFIP")) +
+        geom_text(aes(2020,leagueAverageXFIP, hjust = 2, vjust = -1, label = "League Average XFIP")) +
         ## Maybe change color to red here
         geom_point(aes(year, xFIP, color = Name), size = 5) +
         theme(axis.title.x = element_text(size = 30, face = "bold"),
