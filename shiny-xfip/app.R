@@ -17,8 +17,30 @@ here::here(
   source()
 
 
-ui <- navbarPage("Capstone Project",
-        tabPanel("Home"),
+ui <- navbarPage("",
+        tabPanel("Home",
+          fluidPage(
+            titlePanel("Capstone Project"),
+            mainPanel(
+              h3("Introduction"),
+              p("This shiny app is a University of Virginia capstone project in statistics, created by second-year 
+                students Devan Bose, Jordan Denish, Malcolm Mashig, and Christian Rogers. We created a model to predict 
+                the future xFIP value for MLB starting pitchers. Our results are contained in this app."),
+              h3("Definition of xFIP"),
+              p("Expected Fielding Independent Pitching (xFIP) is an advanced baseball statistic that is an 
+                estimate for a pitcher’s earned run average (ERA). A pitcher’s main objective is to prevent runs and 
+                xFIP is considered to be a better predictor of future performance than ERA, which can mask the actual 
+                skill of a pitcher. xFIP is a common estimate for a pitcher’s ERA that only factors in the batter 
+                outcomes that a pitcher can control (strikeouts, walks, and hit by pitches) while also normalizing 
+                for home runs allowed by using the league average home run/fly ball rate. xFIP is calculated using 
+                the formula xFIP = ((13*(Fly balls * lgHR/FB%))+(3*(BB+HBP))-(2*K))/IP + constant. The constant is 
+                generally around 3.10, which helps adjust the xFIP value to an ERA scale."),
+              h3("Features of the App"),
+              p("- Click on an individual player in the dropdown menu to view their future projections in table and 
+              graph form"),
+              p("- Click on a team from the dropdown menu to subset the data to players from your favorite team"),
+              p("- Click on one of the column headers below to sort the entire dataset by that statistic")
+            ))),
         tabPanel("Predictions",
           fluidPage(
             titlePanel("Three Year xFIP Predictions"),
@@ -36,7 +58,16 @@ ui <- navbarPage("Capstone Project",
             DT::dataTableOutput("table"),
             tableOutput("stats"),
             plotOutput("plot"))),
-        tabPanel("Calculator"))
+        tabPanel("Calculator",
+          fluidPage(
+            titlePanel("xFIP Prediction Calculator"),
+            numericInput("age", "Current Age", 0),
+            numericInput("lagxfip2", "xFIP - 2 Seasons Ago", 0),
+            numericInput("lagxfip1", "xFIP - 1 Season Ago", 0),
+            numericInput("xfip", "Current Season xFIP", 0),
+            numericInput("fbv", "Current Season FBv", 0),
+            numericInput("fbp", "Current Season FBp", 0)
+          )))
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
