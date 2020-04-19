@@ -61,8 +61,8 @@ ui <- navbarPage("",
           fluidPage(
             titlePanel("xFIP Prediction Calculator"),
             numericInput("age", "Current Age", 0),
-            numericInput("lagxfip2", "xFIP - 2 Season Ago", 0),
-            numericInput("lagxfip", "Current Season xFIP", 0),
+            numericInput("lagxfip2", "2018 xFIP", 0),
+            numericInput("lagxfip", "2019 xFIP", 0),
             numericInput("fbv", "Current Season FBv", 0),
             numericInput("fbp", "Current Season FBp", 0),
             tableOutput("calculatedVal")
