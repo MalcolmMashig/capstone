@@ -280,8 +280,8 @@ server <- function(input, output) {
         theme_linedraw() +
         geom_line(aes(year, xFIP, color = Name, linetype = year > 2019), size = 2.5,
                   show.legend = FALSE) +
-        geom_hline(aes(yintercept=leagueAverageXFIP)) +
-        geom_text(aes(2020,leagueAverageXFIP, hjust = 2, vjust = -1, label = "League Average XFIP")) +
+        geom_hline(aes(yintercept=leagueAverageXFIP %>% as.numeric())) +
+        geom_text(aes(2020,leagueAverageXFIP %>% as.numeric(), hjust = 2, vjust = -1, label = "League Average XFIP")) +
         ## Maybe change color to red here
         geom_point(aes(year, xFIP, color = Name), size = 5) +
         theme(axis.title.x = element_text(size = 30, face = "bold"),
