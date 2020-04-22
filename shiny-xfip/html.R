@@ -1,4 +1,4 @@
-install.packages("rvest")
+# install.packages("rvest")
 library(rvest)
 
 get_table <- function(link){
@@ -41,8 +41,4 @@ get_table <- function(link){
   }
   return(df)
 }
-
-## example
-test <- urls[69]
-testdf <- get_table(test)
 

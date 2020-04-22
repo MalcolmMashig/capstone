@@ -16,6 +16,12 @@ here::here(        ## Does the app SOURCE
 ) %>% 
   source()
 
+here::here(
+  'shiny-xfip',
+  'html.R'
+) %>% 
+  source()
+
 ui <- navbarPage("",
         tabPanel("Home",
           fluidPage(
@@ -54,6 +60,7 @@ ui <- navbarPage("",
                           c("All", unique(as.character(sort(predictions$Team))))))
                       ),
             htmlOutput("picture"),
+            tableOutput("bio"),
             DT::dataTableOutput("table"),
             tableOutput("stats"),
             plotOutput("plot"))),
@@ -220,6 +227,16 @@ server <- function(input, output) {
       c('<img src="',src,'" align="middle" width = 106.5 height = 160>')
     }
     })
+  
+  output$bio <- renderTable({
+    if (input$sp == "All" & input$team == "All") {
+    } else if (input$sp != "All") {
+      get_table(
+        fangraphs_urls[which(predictions$Name == input$sp)]
+        )
+    } else {
+    }
+  })
   
   # Filter data based on selections
   output$table <- DT::renderDataTable(DT::datatable({
