@@ -25,9 +25,9 @@ future <- future %>%
     lag_fbp = FBP,
     lag_age = Age,
     age_range = case_when(
-      lag_age < 28 ~ "young",
-      # between(lag_age, 28, 30) ~ "prime",
-      lag_age >= 28 ~ "old"
+      lag_age < 25 ~ "young",
+      between(lag_age, 25, 31) ~ "prime",
+      lag_age >= 32 ~ "old"
     )
   )
 
@@ -65,9 +65,9 @@ future <- future %>%
     lag_fbp = predicted_fbp1,
     lag_age = lag_age + 1,
     age_range = case_when(
-      lag_age < 28 ~ "young",
-      # between(lag_age, 28, 30) ~ "prime",
-      lag_age >= 28 ~ "old"
+      lag_age < 25 ~ "young",
+      between(lag_age, 25, 31) ~ "prime",
+      lag_age >= 32 ~ "old"
     )
   )
 
@@ -93,9 +93,9 @@ future <- future %>%
     lag_fbp = predicted_fbp2,
     lag_age = lag_age + 1,
     age_range = case_when(
-      lag_age < 28 ~ "young",
-      # between(lag_age, 28, 30) ~ "prime",
-      lag_age >= 28 ~ "old"
+      lag_age < 25 ~ "young",
+      between(lag_age, 25, 31) ~ "prime",
+      lag_age >= 32 ~ "old"
     )
   )
 

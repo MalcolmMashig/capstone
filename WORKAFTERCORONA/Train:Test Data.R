@@ -27,9 +27,9 @@ one_yearTRAIN <- fangraphs_stdzTRAIN %>%
   filter(!is.na(lag_xfip)) %>% 
   mutate(
     age_range = case_when(
-      lag_age < 28 ~ "young",
-      # between(lag_age, 28, 30) ~ "prime",
-      lag_age >= 28 ~ "old"
+      lag_age < 25 ~ "young",
+      between(lag_age, 25, 31) ~ "prime",
+      lag_age >= 32 ~ "old"
     )
   )
 
@@ -118,9 +118,9 @@ two_yearTRAIN <- one_yearTRAIN %>%
     lag_fbv = predicted_fbv1,
     lag_fbp = predicted_fbp1,
     age_range = case_when(
-      lag_age < 28 ~ "young", 
-      # between(lag_age, 28, 30) ~ "prime",
-      lag_age >= 28 ~ "old"
+      lag_age < 25 ~ "young",
+      between(lag_age, 25, 31) ~ "prime",
+      lag_age >= 32 ~ "old"
     ),
     lag_xfip2 = lag_xfip,
     lag_xfip = predicted_xfip1
@@ -151,9 +151,9 @@ three_yearTRAIN <- two_yearTRAIN %>%
     lag_fbv = predicted_fbv1,
     lag_fbp = predicted_fbp1,
     age_range = case_when(
-      lag_age < 28 ~ "young",
-      # between(lag_age, 28, 30) ~ "prime",
-      lag_age >= 28 ~ "old"
+      lag_age < 25 ~ "young",
+      between(lag_age, 25, 31) ~ "prime",
+      lag_age >= 32 ~ "old"
     ),
     lag_xfip3 = lag_xfip2,
     lag_xfip2 = lag_xfip,
@@ -315,9 +315,9 @@ one_yearTEST <- fangraphs_stdzTEST %>%
   filter(!is.na(lag_xfip)) %>% 
   mutate(
     age_range = case_when(
-      lag_age < 28 ~ "young",
-      # between(lag_age, 28, 30) ~ "prime",
-      lag_age >= 28 ~ "old"
+      lag_age < 25 ~ "young",
+      between(lag_age, 25, 31) ~ "prime",
+      lag_age >= 32 ~ "old"
     )
   )
 
@@ -410,9 +410,9 @@ two_yearTEST <- one_yearTEST %>%
     lag_fbv = predicted_fbv1,
     lag_fbp = predicted_fbp1,
     age_range = case_when(
-      lag_age < 28 ~ "young", 
-      # between(lag_age, 28, 30) ~ "prime",
-      lag_age >= 28 ~ "old"
+      lag_age < 25 ~ "young",
+      between(lag_age, 25, 32) ~ "prime",
+      lag_age >= 33 ~ "old"
     ),
     lag_xfip2 = lag_xfip,
     lag_xfip = predicted_xfip1
@@ -443,9 +443,9 @@ three_yearTEST <- two_yearTEST %>%
     lag_fbv = predicted_fbv1,
     lag_fbp = predicted_fbp1,
     age_range = case_when(
-      lag_age < 28 ~ "young",
-      # between(lag_age, 28, 30) ~ "prime",
-      lag_age >= 28 ~ "old"
+      lag_age < 25 ~ "young",
+      between(lag_age, 25, 31) ~ "prime",
+      lag_age >= 32 ~ "old"
     ),
     lag_xfip3 = lag_xfip2,
     lag_xfip2 = lag_xfip,
