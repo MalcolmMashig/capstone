@@ -19,6 +19,7 @@ future <- fangraphs_stdz %>%
 
 future <- future %>% 
   mutate(
+    lag_xfip2 = lag_xfip,
     lag_xfip = xFIP,
     lag_fbv = FBv,
     lag_fbp = FBP,

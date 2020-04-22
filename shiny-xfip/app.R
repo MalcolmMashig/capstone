@@ -60,11 +60,11 @@ ui <- navbarPage("",
         tabPanel("Calculator",
           fluidPage(
             titlePanel("xFIP Prediction Calculator"),
-            numericInput("age", "Current Age", 0),
-            numericInput("lagxfip2", "2018 xFIP", 0),
-            numericInput("lagxfip", "2019 xFIP", 0),
-            numericInput("fbv", "Current Season FBv", 0),
-            numericInput("fbp", "Current Season FBp", 0),
+            sliderInput("age", "2019 Age", 18, 45, 25),
+            sliderInput("fbv", "2019 Fastball Velocity", 70, 100, 90, step = 0.1),
+            sliderInput("fbp", "2019 Fastball Percentage", 0, 100, 55, step = 0.1),
+            sliderInput("lagxfip", "2019 xFIP", 2, 6, 4, step = 0.01),
+            sliderInput("lagxfip2", "2018 xFIP", 2, 6, 4, step = 0.01),
             tableOutput("calculatedVal")
           )))
 
@@ -202,11 +202,12 @@ server <- function(input, output) {
     calcFuturePredictions <- calcFuturePredictions %>%
       mutate(
         # xFIP = xFIP * sd_xfip + mean_xfip, # NOT REAL de-standardized
-        predicted_xfip1 = round(predicted_xfip1 * stdzFuture[36, 2] %>% as.numeric() + stdzFuture[36, 3] %>% as.numeric(), 2),
-        predicted_xfip2 = round(predicted_xfip2 * stdzFuture[36, 2] %>% as.numeric() + stdzFuture[36, 3] %>% as.numeric(), 2),
-        predicted_xfip3 = round(predicted_xfip3 * stdzFuture[36, 2] %>% as.numeric() + stdzFuture[36, 3] %>% as.numeric(), 2)
+        "2020 Predicted xFIP" = round(predicted_xfip1 * stdzFuture[36, 2] %>% as.numeric() + stdzFuture[36, 3] %>% as.numeric(), 2),
+        "2021 Predicted xFIP" = round(predicted_xfip2 * stdzFuture[36, 2] %>% as.numeric() + stdzFuture[36, 3] %>% as.numeric(), 2),
+        "2022 Predicted xFIP" = round(predicted_xfip3 * stdzFuture[36, 2] %>% as.numeric() + stdzFuture[36, 3] %>% as.numeric(), 2)
       )
-    calcFuturePredictions
+    calcFuturePredictions %>% 
+      select("2020 Predicted xFIP", "2021 Predicted xFIP", "2022 Predicted xFIP")
     
   })
   
