@@ -16,9 +16,9 @@ one_year <- fangraphs_stdz %>%
   filter(!is.na(lag_xfip)) %>% 
   mutate(
     age_range = case_when(
-      lag_age < 28 ~ "young",
-      # between(lag_age, 28, 30) ~ "prime",
-      lag_age >= 28 ~ "old"
+      lag_age < 25 ~ "young",
+      between(lag_age, 25, 31) ~ "prime",
+      lag_age >= 32 ~ "old"
     )
   )
 
@@ -107,9 +107,9 @@ two_year <- one_year %>%
     lag_fbv = predicted_fbv1,
     lag_fbp = predicted_fbp1,
     age_range = case_when(
-      lag_age < 28 ~ "young", 
-      # between(lag_age, 28, 30) ~ "prime",
-      lag_age >= 28 ~ "old"
+      lag_age < 25 ~ "young",
+      between(lag_age, 25, 31) ~ "prime",
+      lag_age >= 32 ~ "old"
     ),
     lag_xfip2 = lag_xfip,
     lag_xfip = predicted_xfip1
@@ -140,9 +140,9 @@ three_year <- two_year %>%
     lag_fbv = predicted_fbv1,
     lag_fbp = predicted_fbp1,
     age_range = case_when(
-      lag_age < 28 ~ "young",
-      # between(lag_age, 28, 30) ~ "prime",
-      lag_age >= 28 ~ "old"
+      lag_age < 25 ~ "young",
+      between(lag_age, 25, 31) ~ "prime",
+      lag_age >= 32 ~ "old"
     ),
     lag_xfip3 = lag_xfip2,
     lag_xfip2 = lag_xfip,
