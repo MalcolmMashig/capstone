@@ -157,7 +157,8 @@ predictions <-  predictions %>%
   ) %>% 
   mutate(
     "2019 FBP" = str_c(`2019 FBP`, " %"),
-    "2019 FBV" = str_c(`2019 FBV`, " mph")
+    "2019 FBV" = str_c(`2019 FBV`, " mph"),
+    Team = ifelse(Team == "- - -", "Free Agent", Team)
   )
 
 here::here(
@@ -170,7 +171,7 @@ predictionsURLS <- merge(predictions, mlbdata, by = "Name")
 
 ## Manually update names
 predictions[14, 2] <- "Brewers"
-predictions[73,2] <- "- - -"
+predictions[73,2] <- "Free Agent"
 predictions[75,2] <- "Blue Jays"
 predictions[79,2] <- "Braves"
 predictions[80,2] <- "White Sox"
