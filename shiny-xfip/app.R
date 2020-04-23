@@ -252,16 +252,17 @@ server <- function(input, output) {
   output$stats <- renderTable({
     if (input$sp == "All" & input$team == "All") {
     } else if (input$sp != "All") {
-      fangraphs_cleanALL %>% 
+      fangraphs_clean %>%    ## should be fangrapsh_cleanALL next step
         filter(Name == input$sp) %>% 
         mutate(Season = as.integer(Season),
                Age = as.integer(Age),
-               IP = formatC(IP, format = "f", digits = 1),
-               W = as.integer(W),
-               L = as.integer(L))%>% 
+               IP = formatC(IP, format = "f", digits = 1)#,
+               #W = as.integer(W),
+               #L = as.integer(L))
+               )%>% 
         select(
           Season, Team, 
-          Age, IP, W, L, ERA, WHIP, 
+          Age, IP, ERA, WHIP,   ## next step included W and L
           FIP, xFIP, `K/BB`, WAR
         )
     } else {
