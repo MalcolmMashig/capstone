@@ -80,3 +80,39 @@ fangraphs_stdz <- fangraphs_stdz %>%
 
 
 
+
+
+
+
+
+## Add EVERY SEASON for shiny app
+
+# ip_min <- 80  No MINIMUM
+
+fangraphs_cleanALL <- fangraphs_raw %>% 
+  rename(Flyball_percent = `FB%_1`) %>% 
+  mutate(
+    `FB%` = as.numeric(str_remove(`FB%`, " %")),
+    `SL%` = as.numeric(str_remove(`SL%`, " %")),
+    `CT%` = as.numeric(str_remove(`CT%`, " %")),
+    `CB%` = as.numeric(str_remove(`CB%`, " %")),
+    `CH%` = as.numeric(str_remove(`CH%`, " %")),
+    `SF%` = as.numeric(str_remove(`SF%`, " %")),
+    `KN%` = as.numeric(str_remove(`KN%`, " %")),
+    `GB%` = as.numeric(str_remove(`GB%`, " %")),
+    `K%` = as.numeric(str_remove(`K%`, " %")),
+    `BB%` = as.numeric(str_remove(`BB%`, " %")),
+    Flyball_percent = as.double(str_remove(Flyball_percent, " %")),
+    ipg = IP/GS
+  ) %>% 
+  arrange(Name, Season) %>% 
+  group_by(Name) %>% 
+  # Add variables for experience and seasons (number of years in league)
+  mutate(data_years = row_number(),
+         seasons = Season - min(Season) + 1) %>% 
+  ungroup() %>% 
+  group_by(Name) %>% 
+  mutate(experience = row_number()) %>% 
+  ungroup()
+
+

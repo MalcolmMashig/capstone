@@ -11,7 +11,7 @@ library(shiny)
 library(tidyverse)
 library(here)
 
-here::here(        ## Does the app SOURCE
+here::here(
   'WORKAFTERCORONA', 'future-predictions.R'
 ) %>% 
   source()
@@ -252,7 +252,7 @@ server <- function(input, output) {
   output$stats <- renderTable({
     if (input$sp == "All" & input$team == "All") {
     } else if (input$sp != "All") {
-      fangraphs_clean %>% 
+      fangraphs_cleanALL %>% 
         filter(Name == input$sp) %>% 
         mutate(Season = as.integer(Season),
                Age = as.integer(Age),
