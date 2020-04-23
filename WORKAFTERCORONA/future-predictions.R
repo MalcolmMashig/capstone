@@ -170,6 +170,16 @@ here::here(
 ## Have access without URLs
 predictionsURLS <- merge(predictions, mlbdata, by = "Name")
 
+
+# MIGHT NEED THIS
+# #fangraphs_cleanALL <- merge(fangraphs_cleanALL, mlbdata, on = "Name")
+# 
+# fangraphs_cleanALL <- fangraphs_cleanALL%>%
+#   filter(
+#     playerid %in% list(fangraphs_clean$playerid)
+#   )
+
+
 ## Manually update names
 predictions[14, 2] <- "Brewers"
 predictions[73,2] <- "Free Agent"
@@ -219,4 +229,3 @@ leagueAverageXFIP <- League1719 %>%
 colnames(leagueAverageXFIP) = c("Season", "avgxFIP")
 
 leagueAverageXFIP = leagueAverageXFIP[3,2]
-
