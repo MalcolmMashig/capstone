@@ -181,6 +181,10 @@ predictionsURLS <- merge(predictions, mlbdata, by = "Name")
 
 
 ## Manually update names
+
+# FORMAT...
+predictions[which(predictions$Name == "player"), 2] <- "new team"
+
 predictions[14, 2] <- "Brewers"
 predictions[73,2] <- "Free Agent"
 predictions[75,2] <- "Blue Jays"
