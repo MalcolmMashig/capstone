@@ -193,6 +193,8 @@ predictions[which(predictions$Name == "Zach Wheeler"), 2] <- "Phillies"
 predictions[which(predictions$Name == "Kenta Maeda"), 2] <- "Twins"
 predictions[which(predictions$Name == "Rick Porcello"), 2] <- "Mets"
 predictions[which(predictions$Name == "David Price"), 2] <- "Dodgers"
+predictions[which(predictions$Name == "Drew Smyly"), 2] <- "Giants"
+predictions[which(predictions$Name == "Kevin Gausman"), 2] <- "Giants"
 
 # predictions[14, 2] <- "Brewers"
 # predictions[73,2] <- "Free Agent"
