@@ -256,10 +256,12 @@ server <- function(input, output) {
         filter(Name == input$sp) %>% 
         mutate(Season = as.integer(Season),
                Age = as.integer(Age),
-               IP = as.integer(IP)) %>% 
+               IP = formatC(IP, format = "f", digits = 1),
+               W = as.integer(W),
+               L = as.integer(L))%>% 
         select(
           Season, Team, 
-          Age, IP, ERA, WHIP, 
+          Age, IP, W, L, ERA, WHIP, 
           FIP, xFIP, `K/BB`, WAR
         )
     } else {
