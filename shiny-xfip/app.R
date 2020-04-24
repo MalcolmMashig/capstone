@@ -262,8 +262,7 @@ server <- function(input, output) {
                ) %>% 
         select(
           Season, Team, 
-          Age, IP, ERA, WHIP,   ## next step included W and L
-          W, L,
+          Age, IP, W, L, ERA, WHIP, 
           FIP, xFIP, `K/BB`, WAR
         )
     } else {
