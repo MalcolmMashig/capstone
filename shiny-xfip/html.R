@@ -39,6 +39,16 @@ get_table <- function(link){
   if (!is.na(pos)){
     df[pos, 1] <- "Average Annual Value:"
   }
+  len <- nrow(df)
+  df[len,1] <- "Service Time: Reported as the pre-2020 value"
+  time <- as.numeric(df[len,2])
+  yr <- trunc(time)
+  days <- round((1000 * (time - yr)), 0)
+  yr <- as.character(yr)
+  days <- as.character(days)
+  str <- "years and"
+  str2 <- "days"
+  df[len,2] <- paste(yr, str, days, str2)
   return(df)
 }
 
