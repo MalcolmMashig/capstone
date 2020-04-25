@@ -77,7 +77,7 @@ ui <- navbarPage("",
             tableOutput("calculatedVal"),
             
             setBackgroundColor(
-              color = "LightGreen",
+              color = "GhostWhite",
               gradient = c("linear", "radial"),
               direction = c("bottom", "top", "right", "left"),
               shinydashboard = FALSE
