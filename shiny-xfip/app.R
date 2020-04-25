@@ -62,6 +62,7 @@ ui <- navbarPage("",
                           c("All", unique(as.character(sort(predictions$Team))))))
                       ),
             htmlOutput("picture"),
+            htmlOutput("picture2"),
             tableOutput("bio"),
             DT::dataTableOutput("table"),
             tableOutput("stats"),
@@ -248,7 +249,7 @@ server <- function(input, output) {
     }
   })
   
-  output$picture <- renderText({
+  output$picture2 <- renderText({
     src2 <- "https://upload.wikimedia.org/wikipedia/en/thumb/a/a6/Major_League_Baseball_logo.svg/1200px-Major_League_Baseball_logo.svg.png"%>%
       as_vector()
     c('<img src="',src2,'" align="right" width = 180.5 height = 160>')
