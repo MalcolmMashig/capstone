@@ -250,9 +250,11 @@ server <- function(input, output) {
   })
   
   output$picture2 <- renderText({
-    src2 <- "https://upload.wikimedia.org/wikipedia/en/thumb/a/a6/Major_League_Baseball_logo.svg/1200px-Major_League_Baseball_logo.svg.png"%>%
-      as_vector()
-    c('<img src="',src2,'" align="right" width = 200 height = 108.17>')
+    if (input$sp == "All") {
+      src2 <- "https://upload.wikimedia.org/wikipedia/en/thumb/a/a6/Major_League_Baseball_logo.svg/1200px-Major_League_Baseball_logo.svg.png"%>%
+        as_vector()
+      c('<img src="',src2,'" align="right" width = 180 height = 97.36>')
+    }
   })
   
   # Filter data based on selections
