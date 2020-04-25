@@ -8,6 +8,7 @@
 #
 
 library(shiny)
+library(shinyWidgets)
 library(tidyverse)
 library(here)
 
@@ -73,7 +74,15 @@ ui <- navbarPage("",
             sliderInput("fbp", "2019 Fastball Percentage", 0, 100, 55, step = 0.1),
             sliderInput("lagxfip", "2019 xFIP", 2, 6, 4, step = 0.01),
             sliderInput("lagxfip2", "2018 xFIP", 2, 6, 4, step = 0.01),
-            tableOutput("calculatedVal")
+            tableOutput("calculatedVal"),
+            
+            setBackgroundColor(
+              color = "LightGreen",
+              gradient = c("linear", "radial"),
+              direction = c("bottom", "top", "right", "left"),
+              shinydashboard = FALSE
+            )
+            
           )))
 
 server <- function(input, output) {
