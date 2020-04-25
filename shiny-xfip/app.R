@@ -292,7 +292,7 @@ server <- function(input, output) {
         geom_line(aes(year, xFIP, linetype = year > 2019), size = 2.5) +
         geom_hline(aes(yintercept=leagueAverageXFIP %>% as.numeric(), color = "red")) +
         geom_text(aes(2020,leagueAverageXFIP %>% as.numeric(), hjust = 2, vjust = -1, label = "League Average XFIP", color = "red")) +
-        geom_point(aes(year, xFIP), size = 5, shape = 21, color = "black") +
+        geom_point(aes(year, xFIP), size = 5, color = "black") +
         theme_linedraw() + 
         theme(legend.position = "none",
               axis.title.x = element_text(size = 30, face = "bold"),
@@ -300,9 +300,9 @@ server <- function(input, output) {
               axis.title.y = element_text(size = 30, face = "bold"),
               axis.text.y = element_text(size = 22)) +
         scale_y_continuous(
-          breaks = seq(2, 7, 0.5),
-          labels = c("2.0", "2.5", "3.0", "3.5", "4.0", "4.5", "5.0", "5.5", "6.0", "6.5", "7.0"),
-          limits = c(2, 7)
+          breaks = seq(2, 6, 0.5),
+          labels = c("2.0", "2.5", "3.0", "3.5", "4.0", "4.5", "5.0", "5.5", "6.0"),
+          limits = c(2, 6)
         )
     } else if (input$sp == "All" & input$team == "All") {} else {
       p <- predictions %>%
@@ -318,17 +318,17 @@ server <- function(input, output) {
         geom_hline(aes(yintercept=leagueAverageXFIP %>% as.numeric())) +
         geom_text(aes(2020,leagueAverageXFIP %>% as.numeric(), hjust = 2, vjust = -1, label = "League Average XFIP")) +
         ## Maybe change color to red here
-        geom_point(aes(year, xFIP, color = Name), size = 5, shape = 21) +
+        geom_point(aes(year, xFIP, color = Name), size = 5) +
         theme(axis.title.x = element_text(size = 30, face = "bold"),
               axis.text.x = element_text(size = 22),
-              axis.title.y = element_text(angle = 0, size = 30, face = "bold"),
+              axis.title.y = element_text(size = 30, face = "bold"),
               axis.text.y = element_text(size = 22),
               legend.title = element_text(size = 25, face = "bold"),
               legend.text = element_text(size = 20)) +
         scale_y_continuous(
-          breaks = seq(2, 7, 0.5),
-          labels = c("2.0", "2.5", "3.0", "3.5", "4.0", "4.5", "5.0", "5.5", "6.0", "6.5", "7.0"),
-          limits = c(2, 7)
+          breaks = seq(2, 6, 0.5),
+          labels = c("2.0", "2.5", "3.0", "3.5", "4.0", "4.5", "5.0", "5.5", "6.0"),
+          limits = c(2, 6)
         )
     }
   })
