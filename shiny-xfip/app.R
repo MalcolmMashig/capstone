@@ -44,7 +44,8 @@ ui <- navbarPage("",
               p("- Click on an individual player in the dropdown menu to view their future projections in table and 
               graph form"),
               p("- Click on a team from the dropdown menu to subset the data to players from your favorite team"),
-              p("- Click on one of the column headers below to sort the entire dataset by that statistic")
+              p("- Click on one of the column headers below to sort the entire dataset by that statistic"),
+              p("- Use our xFIP Calculator to input values for an imaginary pitcher and we can calculate his expected xFIP for the next 3 seasons.")
             ))),
         tabPanel("Predictions",
           fluidPage(
