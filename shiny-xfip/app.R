@@ -290,7 +290,11 @@ server <- function(input, output) {
               axis.text.x = element_text(size = 22),
               axis.title.y = element_text(size = 30, face = "bold"),
               axis.text.y = element_text(size = 22)) +
-        ylim(2, 7)
+        scale_y_continuous(
+          breaks = seq(2, 7, 0.5),
+          labels = c("2.0", "2.5", "3.0", "3.5", "4.0", "4.5", "5.0", "5.5", "6.0", "6.5", "7.0"),
+          limits = c(2, 7)
+        )
     } else if (input$sp == "All" & input$team == "All") {} else {
       p <- predictions %>%
         filter(Team == input$team)
@@ -312,7 +316,11 @@ server <- function(input, output) {
               axis.text.y = element_text(size = 22),
               legend.title = element_text(size = 25, face = "bold"),
               legend.text = element_text(size = 20)) +
-        ylim(2, 7)
+        scale_y_continuous(
+          breaks = seq(2, 7, 0.5),
+          labels = c("2.0", "2.5", "3.0", "3.5", "4.0", "4.5", "5.0", "5.5", "6.0", "6.5", "7.0"),
+          limits = c(2, 7)
+        )
     }
   })
   
