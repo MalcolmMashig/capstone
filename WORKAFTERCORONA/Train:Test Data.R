@@ -6,8 +6,12 @@ here::here(
 ) %>% 
   source()
 
+Year1ME = 0
+Year2ME = 0
+Year3ME = 0
+
+for (i in 1:2){
 ## Split into training testing data
-set.seed(2020)
 sample.data<-sample.int(nrow(fangraphs_stdz), floor(.5*nrow(fangraphs_stdz)), replace = F)
 fangraphs_stdzTRAIN<-fangraphs_stdz[sample.data,]
 fangraphs_stdzTEST <- fangraphs_stdz[-sample.data,]
@@ -589,9 +593,17 @@ RMSE(predictionsTEST$xFIP, predictionsTEST$predicted_xfip1)
 RMSE(predictionsTEST$xFIP2, predictionsTEST$predicted_xfip2)
 RMSE(predictionsTEST$xFIP3, predictionsTEST$predicted_xfip3)
 
-MeanError(predictionsTEST$xFIP, predictionsTEST$predicted_xfip1)
-MeanError(predictionsTEST$xFIP2, predictionsTEST$predicted_xfip2)
-MeanError(predictionsTEST$xFIP3, predictionsTEST$predicted_xfip3)
+Year1ME = Year1ME + MeanError(predictionsTEST$xFIP, predictionsTEST$predicted_xfip1)
+Year2ME = Year2ME + MeanError(predictionsTEST$xFIP2, predictionsTEST$predicted_xfip2)
+Year3ME = Year3ME + MeanError(predictionsTEST$xFIP3, predictionsTEST$predicted_xfip3)
 
+} ## end of for loop
+
+Year1ME = Year1ME / 5000
+Year2ME = Year2ME / 5000
+Year3ME = Year3ME / 5000
+
+
+data_frame_(c(Year1ME, Year2ME, Year3ME))
 
 
