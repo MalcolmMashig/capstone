@@ -292,7 +292,7 @@ Year3ME = MeanError(predictions$xFIP3, predictions$predicted_xfip3)
 
 TrainError <- data.frame(c(Year1ME, Year2ME, Year3ME))
 
-TestError <- data.frame(c(0.3398959, 0.4423486, 0.4583183)) 
+TrainError <- data.frame(c(0.3398959, 0.4423486, 0.4583183)) 
 
 rownames(TrainError) = c("Year1ME", "Year2ME", "Year3ME")
 
