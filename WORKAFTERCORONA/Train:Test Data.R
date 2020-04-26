@@ -10,7 +10,7 @@ Year1ME = 0
 Year2ME = 0
 Year3ME = 0
 
-for (i in 1:2){
+for (i in 1:5000){
 ## Split into training testing data
 sample.data<-sample.int(nrow(fangraphs_stdz), floor(.5*nrow(fangraphs_stdz)), replace = F)
 fangraphs_stdzTRAIN<-fangraphs_stdz[sample.data,]
@@ -604,6 +604,13 @@ Year2ME = Year2ME / 5000
 Year3ME = Year3ME / 5000
 
 
-data_frame_(c(Year1ME, Year2ME, Year3ME))
+TestError <- data.frame(c(Year1ME, Year2ME, Year3ME))
+
+TestError <- data.frame(c(0.3516178, 0.4445261, 0.4783301)) 
+## Hardcoded so we can remember them
+  
+rownames(TestError) = c("Year1TestME", "Year2TestME", "Year3TestME")
+
+t(TestError)
 
 

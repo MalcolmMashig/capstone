@@ -286,6 +286,14 @@ RMSE(predictions$xFIP, predictions$predicted_xfip1)
 RMSE(predictions$xFIP2, predictions$predicted_xfip2)
 RMSE(predictions$xFIP3, predictions$predicted_xfip3)
 
-MeanError(predictions$xFIP, predictions$predicted_xfip1)
-MeanError(predictions$xFIP2, predictions$predicted_xfip2)
-MeanError(predictions$xFIP3, predictions$predicted_xfip3)
+Year1ME = MeanError(predictions$xFIP, predictions$predicted_xfip1)
+Year2ME = MeanError(predictions$xFIP2, predictions$predicted_xfip2)
+Year3ME = MeanError(predictions$xFIP3, predictions$predicted_xfip3)
+
+TrainError <- data.frame(c(Year1ME, Year2ME, Year3ME))
+
+TestError <- data.frame(c(0.3398959, 0.4423486, 0.4583183)) 
+
+rownames(TrainError) = c("Year1ME", "Year2ME", "Year3ME")
+
+t(TrainError)
