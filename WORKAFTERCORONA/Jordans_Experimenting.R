@@ -70,6 +70,17 @@ xfip_model <- one_year %>%
     formula = xFIP ~ predicted_fbp1 + predicted_fbv1 + lag_age + lag_xfip + predicted_kbb1
   )
 
+
+
+#### kbb model2222
+# kbb_model2222 <- one_year %>% 
+#   lm(
+#     formula = `K/BB` ~ lag_fbv + lag_kbb
+#   )
+# kbb_model2222 %>% 
+#   summary()
+
+
 xfip_model2 <- one_year %>% 
   lm(
     formula = xFIP ~ predicted_fbp1 + predicted_fbv1 + lag_age + lag_xfip +
