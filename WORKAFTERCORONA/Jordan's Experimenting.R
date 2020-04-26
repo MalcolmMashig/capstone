@@ -50,25 +50,39 @@ one_year <- one_year %>%
     predicted_fbp1 = fbp_submodel %>% predict()
   )
 
+# kbb submodel
+kbb_submodel <- one_year %>% 
+  lm(
+    formula = `K/BB` ~ age_range*lag_age + lag_kbb
+  )
+
+kbb_submodel %>% 
+  summary()
+
+one_year <- one_year %>% 
+  mutate(
+    predicted_kbb1 = kbb_submodel %>% predict()
+  )
+
 # xfip model
 xfip_model <- one_year %>% 
   lm(
-    formula = xFIP ~ predicted_fbp1 + predicted_fbv1 + lag_age + lag_xfip
+    formula = xFIP ~ predicted_fbp1 + predicted_fbv1 + lag_age + lag_xfip + predicted_kbb1
   )
 
 xfip_model2 <- one_year %>% 
   lm(
     formula = xFIP ~ predicted_fbp1 + predicted_fbv1 + lag_age + lag_xfip +
-      lag_xfip2
+      lag_xfip2 + predicted_kbb1
   )
 
 xfip_model3 <- one_year %>% 
   lm(
     formula = xFIP ~ predicted_fbp1 + predicted_fbv1 + lag_age + lag_xfip +
-      lag_xfip2 + lag_xfip3
+      lag_xfip2 + lag_xfip3 + predicted_kbb1
   )
 
-xfip_model %>% 
+xfip_model2 %>% 
   summary()
 
 one_year1 <- one_year %>% 
@@ -106,6 +120,7 @@ two_year <- one_year %>%
     lag_age = lag_age + 1, # should be Age?
     lag_fbv = predicted_fbv1,
     lag_fbp = predicted_fbp1,
+    lag_kbb = predicted_kbb1,
     age_range = case_when(
       lag_age < 25 ~ "young",
       between(lag_age, 25, 31) ~ "prime",
@@ -118,7 +133,8 @@ two_year <- one_year %>%
 two_year <- two_year %>% 
   mutate(
     predicted_fbv1 = fbv_submodel %>% predict(newdata = two_year),
-    predicted_fbp1 = fbp_submodel %>% predict(newdata = two_year)
+    predicted_fbp1 = fbp_submodel %>% predict(newdata = two_year),
+    predicted_kbb1 = kbb_submodel %>% predict(newdata = two_year)
   )
 
 # needs to be separate from above
@@ -139,6 +155,7 @@ three_year <- two_year %>%
     lag_age = lag_age + 1, # should be lead_age?
     lag_fbv = predicted_fbv1,
     lag_fbp = predicted_fbp1,
+    lag_kbb = predicted_kbb1,
     age_range = case_when(
       lag_age < 25 ~ "young",
       between(lag_age, 25, 31) ~ "prime",
@@ -152,7 +169,8 @@ three_year <- two_year %>%
 three_year <- three_year %>% 
   mutate(
     predicted_fbv1 = fbv_submodel %>% predict(newdata = three_year),
-    predicted_fbp1 = fbp_submodel %>% predict(newdata = three_year)
+    predicted_fbp1 = fbp_submodel %>% predict(newdata = three_year),
+    predicted_kbb1 = kbb_submodel %>% predict(newdata = two_year)
   )
 
 # needs to be separate from above
