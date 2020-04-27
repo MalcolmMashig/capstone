@@ -64,7 +64,8 @@ fangraphs_clean <- fangraphs_raw %>%
          lag_fbp2 = lag(FBP, n = 2),
          lag_age = lag(Age),
          xFIP2 = lead(xFIP),
-         xFIP3 = lead(xFIP, 2)) %>% 
+         xFIP3 = lead(xFIP, 2),
+         lag_kbb = lag(`K/BB`)) %>% 
   ungroup()
 
 fangraphs_stdz <- fangraphs_clean %>% 
@@ -72,7 +73,7 @@ fangraphs_stdz <- fangraphs_clean %>%
   group_by(Season) %>% 
   mutate_at(
     .vars = vars(ERA, `K/9`:FIP, WAR:xFIP, `H/9`:`HR/9`, 
-                 Flyball_percent, `K%`:`BB%`, FBP, `FBv`),
+                 Flyball_percent, `K%`:`BB%`, FBP, `FBv`, `K/BB`),
     .funs = scale
   ) %>% 
   ungroup()
@@ -91,7 +92,8 @@ fangraphs_stdz <- fangraphs_stdz %>%
          lag_fbp = lag(FBP),
          lag_fbv2 = lag(FBv, n = 2),
          lag_fbp2 = lag (FBP, n = 2),
-         lag_age = lag(Age)) %>% 
+         lag_age = lag(Age),
+         lag_kbb = lag(`K/BB`))%>% 
   ungroup()
 
 
@@ -146,6 +148,7 @@ fangraphs_cleanALL <- fangraphs_rawALL %>%
          lag_fbp2 = lag(FBP, n = 2),
          lag_age = lag(Age),
          xFIP2 = lead(xFIP),
-         xFIP3 = lead(xFIP, 2)) %>% 
+         xFIP3 = lead(xFIP, 2),
+         lag_kbb = lag(`K/BB`))%>%
   ungroup()
 
