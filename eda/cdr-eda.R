@@ -1,5 +1,5 @@
 
-setwd("/Users/christianrogers/Desktop/capstone/data")
+
 pitchers <- read.csv("fangraphs.csv")
 
  pitchers <- read.csv("fangraphs.csv")
