@@ -1,8 +1,8 @@
 {
-    "path" : "~/Google Drive/2nd Year/STAT 4996/Github Folder/shiny-xfip",
+    "path" : "~/Google Drive/2nd Year/STAT 4996/Github Folder",
     "sortOrder" : [
         {
-            "ascending" : true,
+            "ascending" : false,
             "columnIndex" : 2
         }
     ]
