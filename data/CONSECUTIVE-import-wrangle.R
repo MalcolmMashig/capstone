@@ -151,4 +151,3 @@ fangraphs_cleanALL <- fangraphs_rawALL %>%
          xFIP3 = lead(xFIP, 2),
          lag_kbb = lag(`K/BB`))%>%
   ungroup()
-
